@@ -1,8 +1,16 @@
 {
   "carousel": [
     {
-      "imageUrl": "https://raw.githubusercontent.com/nekobyran/remote/main/images/banner1.jpg",
-      "linkUrl": "https://example.com/page-1"
+      "imageUrl": "https://image.acg.lol/file/2026/04/11/142459013_p0.png",
+      "linkUrl": "https://image.acg.lol/file/2026/04/11/142459013_p0.png"
+    },
+    {
+      "imageUrl": "https://image.acg.lol/file/2026/04/11/142951974_p0.png",
+      "linkUrl": "https://image.acg.lol/file/2026/04/11/142951974_p0.png"
+    },
+    {
+      "imageUrl": "https://image.acg.lol/file/2026/04/11/142782152_p0.png",
+      "linkUrl": "https://image.acg.lol/file/2026/04/11/142782152_p0.png"
     }
   ],
   "announcements": [
