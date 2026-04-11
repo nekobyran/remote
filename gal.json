@@ -1,0 +1,121 @@
+{
+  "scenarios": [
+    {
+      "id": "demo",
+      "lines": [
+        {
+          "speaker": "星野",
+          "content": "欢迎来到 Nekostar，这是远程仓库驱动的 galgame 弹窗示例。",
+          "typewriterDelayMillis": 26,
+          "character": {
+            "name": "星野",
+            "imageUrl": "https://image.acg.lol/file/2026/04/11/142459013_p0.png",
+            "motions": [
+              {
+                "type": "bounce",
+                "distance": 20,
+                "durationMillis": 420
+              },
+              {
+                "type": "path",
+                "durationMillis": 1400,
+                "keyframes": [
+                  {
+                    "fraction": 0.0,
+                    "x": 0,
+                    "y": 0,
+                    "rotationZ": 0,
+                    "scale": 1,
+                    "alpha": 1
+                  },
+                  {
+                    "fraction": 0.35,
+                    "x": 10,
+                    "y": -18,
+                    "rotationZ": -4,
+                    "scale": 1.03,
+                    "alpha": 1
+                  },
+                  {
+                    "fraction": 0.7,
+                    "x": 18,
+                    "y": 6,
+                    "rotationZ": 3,
+                    "scale": 0.98,
+                    "alpha": 0.96
+                  },
+                  {
+                    "fraction": 1.0,
+                    "x": 0,
+                    "y": 0,
+                    "rotationZ": 0,
+                    "scale": 1,
+                    "alpha": 1
+                  }
+                ]
+              }
+            ],
+            "effects": [
+              {
+                "type": "pulse",
+                "minScale": 0.98,
+                "maxScale": 1.03,
+                "durationMillis": 900
+              }
+            ]
+          }
+        },
+        {
+          "speaker": "星野",
+          "content": "你现在修改 GitHub 上的 gal.json，应用重新拉取后就能更新剧情和动作。",
+          "typewriterDelayMillis": 24,
+          "character": {
+            "name": "星野",
+            "imageUrl": "https://image.acg.lol/file/2026/04/11/142951974_p0.png",
+            "motions": [
+              {
+                "type": "spin",
+                "durationMillis": 1200
+              }
+            ],
+            "effects": [
+              {
+                "type": "breath",
+                "minAlpha": 0.88,
+                "maxAlpha": 1.0,
+                "durationMillis": 1100
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "continue",
+              "label": "继续下一句",
+              "nextIndex": 2
+            },
+            {
+              "id": "close",
+              "label": "关闭弹窗",
+              "dismissDialog": true
+            }
+          ]
+        },
+        {
+          "speaker": "系统",
+          "content": "这个脚本来自远程仓库 main/gal.json。",
+          "character": {
+            "name": "系统",
+            "imageUrl": "https://image.acg.lol/file/2026/04/11/142782152_p0.png",
+            "effects": [
+              {
+                "type": "floaty",
+                "distance": 10,
+                "durationMillis": 1500
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
