@@ -1,0 +1,15 @@
+{
+  "carousel": [
+    {
+      "imageUrl": "https://raw.githubusercontent.com/nekobyran/remote/main/images/banner1.jpg",
+      "linkUrl": "https://example.com/page-1"
+    }
+  ],
+  "announcements": [
+    {
+      "id": "2026-04-11-001",
+      "title": "远程配置已启用",
+      "summary": "客户端现在会从该仓库读取轮播图与公告内容。"
+    }
+  ]
+}
