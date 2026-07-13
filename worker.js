@@ -1,4 +1,4 @@
-const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/fad1369d39418c0398dd6f5a80aebaf3f92a467d';
+const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/584a27fe5e91e5e27be2224d987a397ae8f76f36';
 const FILES = new Set([
   'index.html',
   'styles.css',
@@ -73,7 +73,7 @@ async function handleRequest(request) {
   const extension = path.split('.').pop();
   const headers = securityHeaders(CONTENT_TYPES[extension] || 'application/octet-stream');
   headers.set('Cache-Control', path === 'index.html' ? 'public, max-age=60' : 'public, max-age=300');
-  headers.set('X-NKBR-Origin-Commit', 'fad1369d39418c0398dd6f5a80aebaf3f92a467d');
+  headers.set('X-NKBR-Origin-Commit', '584a27fe5e91e5e27be2224d987a397ae8f76f36');
 
   return new Response(request.method === 'HEAD' ? null : originResponse.body, {
     status: 200,
