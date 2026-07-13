@@ -4,6 +4,7 @@ const FILES = new Set([
   'styles.css',
   'script.js',
   'favicon.svg',
+  'lanzou-plus-icon.webp',
   'robots.txt',
   'sitemap.xml',
 ]);
@@ -13,6 +14,7 @@ const CONTENT_TYPES = {
   css: 'text/css; charset=utf-8',
   js: 'application/javascript; charset=utf-8',
   svg: 'image/svg+xml; charset=utf-8',
+  webp: 'image/webp',
   txt: 'text/plain; charset=utf-8',
   xml: 'application/xml; charset=utf-8',
 };
