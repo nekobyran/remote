@@ -1,4 +1,4 @@
-const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/5e5b1e71dac67fb2431bf0dfec632d0e8479a50a';
+const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/76def037bb1ba7be1342be377dfaf3d2e42a180e';
 const FILES = new Set([
   'index.html',
   'styles.css',
@@ -80,3 +80,4 @@ function securityHeaders(contentType) {
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   });
 }
+
