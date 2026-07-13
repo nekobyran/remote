@@ -6,6 +6,7 @@ const FILES = new Set([
   'favicon.svg',
   'lanzou-plus-public-icon.svg',
   'lanzou-plus-icon.webp',
+  'lanzouyou-icon.svg',
   'nekostar-icon.webp',
   'nekostar-devtools-icon.webp',
   'android-simulator-icon.webp',

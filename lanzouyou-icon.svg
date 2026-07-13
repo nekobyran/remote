@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LanzouYOU">
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="#0b57d0"/>
+  <path fill="#d7e3ff" d="M15 46c-8 0-10-10-3-14-1-9 11-14 17-7 8-3 15 4 13 11 7 3 3 10-3 10H15Z"/>
+  <path fill="none" stroke="#0b57d0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="m17 31 4 5 4-5m-4 5v6m7-7c0-3 2-5 5-5s5 2 5 5v2c0 3-2 5-5 5s-5-2-5-5v-2Zm14-4v6c0 3 2 5 5 5s5-2 5-5v-6"/>
+</svg>
