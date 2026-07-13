@@ -1,4 +1,4 @@
-const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/76def037bb1ba7be1342be377dfaf3d2e42a180e';
+const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/ab3c8dae9d322ec981a875ab0192f19f0fabdd40';
 const FILES = new Set([
   'index.html',
   'styles.css',
