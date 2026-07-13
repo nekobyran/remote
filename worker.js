@@ -4,6 +4,7 @@ const FILES = new Set([
   'styles.css',
   'script.js',
   'favicon.svg',
+  'lanzou-plus-public-icon.svg',
   'lanzou-plus-icon.webp',
   'nekostar-icon.webp',
   'nekostar-devtools-icon.webp',
