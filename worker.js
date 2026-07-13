@@ -1,4 +1,5 @@
 const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/main';
+const SOURCE_VERSION = '20260713-icon';
 const FILES = new Set([
   'index.html',
   'styles.css',
@@ -49,7 +50,7 @@ async function handleRequest(request) {
     });
   }
 
-  const originResponse = await fetch(`${ORIGIN}/${path}`, {
+  const originResponse = await fetch(`${ORIGIN}/${path}?source=${SOURCE_VERSION}`, {
     cf: { cacheEverything: true, cacheTtl: 300 },
   });
 
@@ -80,3 +81,4 @@ function securityHeaders(contentType) {
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   });
 }
+
