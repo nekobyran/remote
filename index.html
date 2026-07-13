@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fff9ef" />
+    <meta
+      name="description"
+      content="Neko By Ran 软件发布页，目前提供 Lanzou++ 的发布入口。"
+    />
+    <meta property="og:title" content="Neko Releases — 软件发布页" />
+    <meta
+      property="og:description"
+      content="轻巧、直接的软件发布入口。目前上架：Lanzou++。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nkbr.cc/" />
+    <title>Neko Releases — 软件发布页</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#releases">跳到发布内容</a>
+
+    <div class="page-shell">
+      <header class="site-header" aria-label="站点页眉">
+        <a class="brand" href="/" aria-label="Neko Releases 首页">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span>
+            <strong>NEKO</strong>
+            <small>RELEASES</small>
+          </span>
+        </a>
+        <div class="header-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>发布页在线</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span>01</span> / SOFTWARE SHELF</p>
+            <h1 id="hero-title">把好用的软件，<br /><em>放在触手可及的地方。</em></h1>
+            <p class="hero-summary">
+              这里是 Neko By Ran 的软件发布页。没有复杂导航，找到想要的软件，然后出发。
+            </p>
+            <a class="text-link" href="#releases">
+              查看当前发布
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="cat-window">
+              <div class="window-bar">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="cat-face">
+                <i class="ear left"></i><i class="ear right"></i>
+                <div class="eyes"><b></b><b></b></div>
+                <div class="mouth">⌄</div>
+              </div>
+              <p>ready to ship!</p>
+            </div>
+            <span class="spark spark-one">✦</span>
+            <span class="spark spark-two">✦</span>
+          </div>
+        </section>
+
+        <section class="releases" id="releases" aria-labelledby="release-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow"><span>02</span> / NOW SHIPPING</p>
+              <h2 id="release-title">当前发布</h2>
+            </div>
+            <p>1 个软件</p>
+          </div>
+
+          <article class="release-card">
+            <div class="app-icon" aria-hidden="true">
+              <span>L</span>
+              <i>++</i>
+            </div>
+            <div class="release-info">
+              <div class="release-title-row">
+                <div>
+                  <p class="release-kicker">FEATURED RELEASE</p>
+                  <h3>Lanzou++</h3>
+                </div>
+                <span class="available-badge">可获取</span>
+              </div>
+              <p class="release-description">
+                Lanzou++ 的官方发布入口。点击获取后将前往蓝奏云发布页，查看并获取当前提供的版本。
+              </p>
+              <dl class="release-meta">
+                <div><dt>发布渠道</dt><dd>蓝奏云</dd></div>
+                <div><dt>状态</dt><dd>持续提供</dd></div>
+              </dl>
+            </div>
+            <a
+              class="download-button"
+              href="https://nekobyran.lanzouw.com/b00yawz2bg"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-download
+            >
+              <span>获取 Lanzou++</span>
+              <b aria-hidden="true">↗</b>
+            </a>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <p>© <span data-year></span> Neko By Ran</p>
+        <p>Made with curiosity <span aria-hidden="true">✦</span> nkbr.cc</p>
+      </footer>
+    </div>
+
+    <div class="toast" role="status" aria-live="polite" data-toast>
+      正在带你前往发布页…
+    </div>
+  </body>
+</html>
