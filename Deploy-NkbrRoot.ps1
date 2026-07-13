@@ -54,11 +54,13 @@ function Invoke-Validate {
     'LanzouPlus',
     'LanzouMax',
     'LanzouYOU',
+    'FLClash++',
     'https://lanzouplus.nkbr.cc/',
     'https://lanzoumax.nkbr.cc/',
     '<p>2 个软件</p>',
-    '<p>7 个项目</p>',
+    '<p>8 个项目</p>',
     'Flutter + Rust',
+    '接入免费节点能力的 FLClash 本地项目',
     '原生 Java',
     '<dt>版本</dt><dd>1.0.0</dd>'
   )
@@ -90,10 +92,14 @@ function Invoke-Validate {
       throw "Worker 清单中的文件不存在：$relative"
     }
   }
-  if (([regex]::Matches($index, '<li class="roadmap-item">')).Count -ne 7 -or $index -notmatch '(?s)<li class="roadmap-item">.*?<h3>Game Launcher</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>LanzouYOU</h3>') {
-    throw 'LanzouYOU 必须位于 Game Launcher 之后的项目区，且原有项目不得丢失。'
+  if (([regex]::Matches($index, '<li class="roadmap-item">')).Count -ne 8 -or $index -notmatch '(?s)<li class="roadmap-item">.*?<h3>Game Launcher</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>LanzouYOU</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>FLClash\+\+</h3>') {
+    throw 'LanzouYOU 与 FLClash++ 必须位于 Game Launcher 之后的项目区，且原有项目不得丢失。'
   }
-  'validation=pass;main-releases=2;roadmap=7;lanzouyou-after-gamelauncher=true;private-assets=0'
+  $flClashItem = [regex]::Match($index, '(?s)<li class="roadmap-item">(?:(?!</li>).)*?<h3>FLClash\+\+</h3>(?:(?!</li>).)*?</li>')
+  if (-not $flClashItem.Success -or $flClashItem.Value -match '<a\s') {
+    throw 'FLClash++ 本地项目不得虚构下载或公开链接。'
+  }
+  'validation=pass;main-releases=2;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0'
 }
 
 switch ($Action) {
