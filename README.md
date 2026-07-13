@@ -9,7 +9,8 @@
 ## 发布
 
 - 源码：GitHub `main` 分支
-- 托管：Cloudflare Pages（与 GitHub 仓库连接）
+- 静态源：GitHub `nekobyran/remote`
+- 边缘入口：Cloudflare Worker（只代理仓库中的公开静态文件）
 - 自定义域名：`nkbr.cc`
 
-推送到 `main` 后由 Cloudflare Pages 自动重新部署。
+更新 `main` 分支的静态文件后，线上内容会在短缓存周期内自动刷新；修改 `worker.js` 时再使用 Wrangler 部署边缘入口。
