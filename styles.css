@@ -175,8 +175,8 @@ h1 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
 .roadmap-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--line); }
 .roadmap-item {
   display: grid;
-  grid-template-columns: 46px minmax(260px, 1fr) minmax(220px, .85fr) auto;
-  gap: 24px;
+  grid-template-columns: 36px 64px minmax(260px, 1fr) minmax(220px, .85fr) auto;
+  gap: 22px;
   align-items: center;
   min-height: 126px;
   padding: 24px 10px;
@@ -185,6 +185,7 @@ h1 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
 }
 .roadmap-item:hover { padding-inline: 18px; background: rgba(141, 199, 255, .16); }
 .roadmap-number { color: #81756d; font: 500 11px/1 "SFMono-Regular", Consolas, monospace; }
+.roadmap-icon { width: 64px; height: 64px; border: 1.5px solid var(--line); border-radius: 16px; object-fit: cover; box-shadow: 3px 3px 0 var(--line); }
 .roadmap-copy h3 { margin-bottom: 9px; font-size: 25px; line-height: 1.15; letter-spacing: -.025em; }
 .roadmap-copy p { margin: 0; color: #5b514b; line-height: 1.7; }
 .roadmap-tags { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -213,8 +214,8 @@ footer p { margin: 0; }
   .app-icon { width: 88px; border-radius: 22px; }
   .app-icon span { font-size: 44px; }
   .download-button { grid-column: 1 / -1; justify-content: space-between; }
-  .roadmap-item { grid-template-columns: 40px 1fr auto; }
-  .roadmap-tags { grid-column: 2 / -1; }
+  .roadmap-item { grid-template-columns: 34px 64px 1fr auto; }
+  .roadmap-tags { grid-column: 3 / -1; }
 }
 
 @media (max-width: 560px) {
@@ -236,10 +237,11 @@ footer p { margin: 0; }
   .release-meta { flex-direction: column; gap: 10px; }
   .download-button { grid-column: auto; }
   .roadmap { padding-block: 68px 84px; }
-  .roadmap-item { grid-template-columns: 32px 1fr; gap: 16px; align-items: start; padding-block: 25px; }
+  .roadmap-item { grid-template-columns: 30px 56px 1fr; gap: 14px; align-items: start; padding-block: 25px; }
+  .roadmap-icon { width: 56px; height: 56px; border-radius: 14px; }
   .roadmap-copy h3 { font-size: 22px; }
-  .roadmap-tags { grid-column: 2; }
-  .roadmap-status { grid-column: 2; text-align: left; }
+  .roadmap-tags { grid-column: 3; }
+  .roadmap-status { grid-column: 3; text-align: left; }
   footer { align-items: flex-start; flex-direction: column; justify-content: center; }
 }
 

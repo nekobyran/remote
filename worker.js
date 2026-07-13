@@ -5,6 +5,12 @@ const FILES = new Set([
   'script.js',
   'favicon.svg',
   'lanzou-plus-icon.webp',
+  'nekostar-icon.webp',
+  'nekostar-devtools-icon.webp',
+  'android-simulator-icon.webp',
+  'kacha-icon.webp',
+  'skill-creator-icon.webp',
+  'game-launcher-icon.webp',
   'robots.txt',
   'sitemap.xml',
 ]);
@@ -80,4 +86,3 @@ function securityHeaders(contentType) {
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   });
 }
-
