@@ -1,6 +1,6 @@
 # Neko Releases
 
-`nkbr.cc` 的静态软件发布页，目前提供 LanzouPlus 与 LanzouMax 的正式发布入口，并展示开发中的 LanzouYOU。
+`nkbr.cc` 的静态软件发布页，目前提供 LanzouPlus 与 LanzouMax 的正式发布入口，并展示开发中的 LanzouYOU 与本地 FLClash++ 项目。
 
 ## 本地预览
 

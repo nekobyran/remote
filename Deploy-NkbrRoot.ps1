@@ -99,6 +99,18 @@ function Invoke-Validate {
   if (-not $flClashItem.Success -or $flClashItem.Value -match '<a\s') {
     throw 'FLClash++ 本地项目不得虚构下载或公开链接。'
   }
+  $flClashIconPath = Join-Path $project 'flclash-plusplus-icon.png'
+  $legacyFlClashIconPath = Join-Path $project 'flclash-plusplus-icon.svg'
+  if (Test-Path -LiteralPath $legacyFlClashIconPath) {
+    throw 'FLClash++ 原创占位 SVG 必须从发布源删除。'
+  }
+  if ($index -notmatch 'src="/flclash-plusplus-icon\.png"' -or -not (Test-Path -LiteralPath $flClashIconPath -PathType Leaf)) {
+    throw 'FLClash++ 必须引用本地项目的真实 PNG 应用图标。'
+  }
+  $flClashIconHash = (Get-FileHash -LiteralPath $flClashIconPath -Algorithm SHA256).Hash
+  if ($flClashIconHash -ne 'F3E0BCE43B212427D76A6B1ECA5B6B03C91DE2E166519318D4A1B88FBEB13806') {
+    throw 'FLClash++ 图标不是已核验的本地 Android launcher 源图。'
+  }
   'validation=pass;main-releases=2;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0'
 }
 
