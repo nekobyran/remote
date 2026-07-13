@@ -56,8 +56,8 @@ function Invoke-Validate {
     'LanzouYOU',
     'https://lanzouplus.nkbr.cc/',
     'https://lanzoumax.nkbr.cc/',
-    '<p>3 个项目</p>',
-    'Windows + Android',
+    '<p>2 个软件</p>',
+    '<p>7 个项目</p>',
     'Flutter + Rust',
     '原生 Java',
     '<dt>版本</dt><dd>1.0.0</dd>'
@@ -66,8 +66,8 @@ function Invoke-Validate {
     if (-not $index.Contains($text)) { throw "根发布页缺少要求内容：$text" }
   }
 
-  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 3) {
-    throw '根发布页必须精确展示三个项目。'
+  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 2) {
+    throw '主发布区必须精确展示 LanzouPlus 与 LanzouMax。'
   }
   if (([regex]::Matches($index, '<dt>版本</dt><dd>1\.0\.0</dd>')).Count -ne 2) {
     throw '两个已发布项目都必须显示版本 1.0.0。'
@@ -90,7 +90,10 @@ function Invoke-Validate {
       throw "Worker 清单中的文件不存在：$relative"
     }
   }
-  'validation=pass;projects=3;released=2;versions=1.0.0;private-assets=0'
+  if (([regex]::Matches($index, '<li class="roadmap-item">')).Count -ne 7 -or $index -notmatch '(?s)<li class="roadmap-item">.*?<h3>Game Launcher</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>LanzouYOU</h3>') {
+    throw 'LanzouYOU 必须位于 Game Launcher 之后的项目区，且原有项目不得丢失。'
+  }
+  'validation=pass;main-releases=2;roadmap=7;lanzouyou-after-gamelauncher=true;private-assets=0'
 }
 
 switch ($Action) {
