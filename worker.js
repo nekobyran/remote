@@ -56,7 +56,8 @@ async function handleRequest(request) {
   }
 
   const originResponse = await fetch(`${ORIGIN}/${path}`, {
-    cf: { cacheEverything: true, cacheTtl: 300 },
+    headers: { 'Cache-Control': 'no-cache' },
+    cf: { cacheTtl: 0 },
   });
 
   if (!originResponse.ok) {
@@ -69,6 +70,7 @@ async function handleRequest(request) {
   const extension = path.split('.').pop();
   const headers = securityHeaders(CONTENT_TYPES[extension] || 'application/octet-stream');
   headers.set('Cache-Control', path === 'index.html' ? 'public, max-age=60' : 'public, max-age=300');
+  headers.set('X-NKBR-Origin-Commit', '3e156fc09ba2b3061f303a0ca93ce39e67cc98c9');
 
   return new Response(request.method === 'HEAD' ? null : originResponse.body, {
     status: 200,
