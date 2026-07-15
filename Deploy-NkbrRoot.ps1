@@ -68,6 +68,31 @@ function Invoke-Validate {
     if (-not $index.Contains($text)) { throw "根发布页缺少要求内容：$text" }
   }
 
+  foreach ($directive in @(
+    '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
+    '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
+    '<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+  )) {
+    if (-not $index.Contains($directive, [StringComparison]::Ordinal)) { throw "根发布页缺少禁止索引指令：$directive" }
+  }
+
+  $robotsPath = Join-Path $project 'robots.txt'
+  if (-not (Test-Path -LiteralPath $robotsPath -PathType Leaf)) { throw '根发布页缺少 robots.txt。' }
+  $robots = Get-Content -LiteralPath $robotsPath -Raw -Encoding UTF8
+  if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 必须禁止所有爬虫抓取。' }
+  foreach ($bot in @('Googlebot', 'Bingbot', 'Baiduspider', 'Sogou web spider')) {
+    $pattern = '(?im)^User-agent:\s*' + [regex]::Escape($bot) + '$[\s\S]*?^Disallow:\s*/\s*$'
+    if ($robots -notmatch $pattern) { throw "根发布页 robots.txt 缺少 $bot 的禁止抓取规则。" }
+  }
+
+  if ($worker -notmatch "'X-Robots-Tag':\s*'noindex, nofollow, noarchive, nosnippet, noimageindex'") {
+    throw '根发布页 Worker 必须为所有响应设置完整 X-Robots-Tag。'
+  }
+  $publicFiles = @(Get-PublicFiles)
+  if ($publicFiles -contains 'sitemap.xml' -or (Test-Path -LiteralPath (Join-Path $project 'sitemap.xml'))) {
+    throw '根发布页不得保留或发布 sitemap.xml。'
+  }
+
   if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 2) {
     throw '主发布区必须精确展示 LanzouPlus 与 LanzouMax。'
   }
@@ -87,7 +112,7 @@ function Invoke-Validate {
     throw 'Wrangler 项目或根域名路由不正确。'
   }
 
-  foreach ($relative in Get-PublicFiles) {
+  foreach ($relative in $publicFiles) {
     if (-not (Test-Path -LiteralPath (Join-Path $project $relative) -PathType Leaf)) {
       throw "Worker 清单中的文件不存在：$relative"
     }

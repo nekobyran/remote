@@ -15,7 +15,6 @@ const FILES = new Set([
   'skill-creator-icon.webp',
   'game-launcher-icon.webp',
   'robots.txt',
-  'sitemap.xml',
 ]);
 
 const CONTENT_TYPES = {
@@ -35,9 +34,11 @@ addEventListener('fetch', (event) => {
 
 async function handleRequest(request) {
   if (request.method !== 'GET' && request.method !== 'HEAD') {
+    const headers = securityHeaders('text/plain; charset=utf-8');
+    headers.set('Allow', 'GET, HEAD');
     return new Response('Method Not Allowed', {
       status: 405,
-      headers: { Allow: 'GET, HEAD' },
+      headers,
     });
   }
 
@@ -87,6 +88,7 @@ function securityHeaders(contentType) {
     'Content-Type': contentType,
     'Content-Security-Policy': "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; style-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
     'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet, noimageindex',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',

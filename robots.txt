@@ -1,4 +1,14 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://nkbr.cc/sitemap.xml
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
