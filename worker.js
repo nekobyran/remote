@@ -1,11 +1,10 @@
-const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/0ce6bf3e1b48f22325263b55446b3a7abeccdd63';
+const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/e64e4836af24da942665dcab84936db3a24b39e6';
 const FILES = new Set([
   'index.html',
   'styles.css',
   'script.js',
   'favicon.svg',
   'lanzou-plus-public-icon.svg',
-  'lanzou-plus-icon.webp',
   'lanzouyou-icon.svg',
   'flclash-plusplus-icon.png',
   'nekostar-icon.webp',
@@ -75,8 +74,10 @@ async function handleRequest(request) {
 
   const extension = path.split('.').pop();
   const headers = securityHeaders(CONTENT_TYPES[extension] || 'application/octet-stream');
-  headers.set('Cache-Control', path === 'index.html' ? 'public, max-age=60' : 'public, max-age=300');
-  headers.set('X-NKBR-Origin-Commit', '0ce6bf3e1b48f22325263b55446b3a7abeccdd63');
+  headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  headers.set('Pragma', 'no-cache');
+  headers.set('Expires', '0');
+  headers.set('X-NKBR-Origin-Commit', 'e64e4836af24da942665dcab84936db3a24b39e6');
 
   return new Response(request.method === 'HEAD' ? null : originResponse.body, {
     status: 200,
@@ -89,7 +90,7 @@ function securityHeaders(contentType) {
     'Content-Type': contentType,
     'Content-Security-Policy': "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; style-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet, noimageindex',
+    'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet, noimageindex, unavailable_after: 15 Jul 2026 00:00:00 GMT',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
