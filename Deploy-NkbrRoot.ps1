@@ -79,7 +79,7 @@ function Invoke-Validate {
   $robotsPath = Join-Path $project 'robots.txt'
   if (-not (Test-Path -LiteralPath $robotsPath -PathType Leaf)) { throw '根发布页缺少 robots.txt。' }
   $robots = Get-Content -LiteralPath $robotsPath -Raw -Encoding UTF8
-  if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 必须禁止所有爬虫抓取。' }
+  if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 必须保留通用爬虫默认禁止规则。' }
   foreach ($bot in @('Googlebot', 'Bingbot', 'Baiduspider', 'Sogou web spider')) {
     $pattern = '(?im)^User-agent:\s*' + [regex]::Escape($bot) + '$[\s\S]*?^Allow:\s*/\s*$'
     if ($robots -notmatch $pattern) { throw "根发布页 robots.txt 必须允许 $bot 读取 noindex 指令。" }
