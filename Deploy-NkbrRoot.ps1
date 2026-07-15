@@ -52,12 +52,10 @@ function Invoke-Validate {
   $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8
   $required = @(
     'LanzouPlus',
-    'LanzouMax',
     'LanzouYOU',
     'FLClash++',
     'https://lanzouplus.nkbr.cc/',
-    'https://lanzoumax.nkbr.cc/',
-    '<p>2 个软件</p>',
+    '<p>1 个软件</p>',
     '<p>8 个项目</p>',
     'Flutter + Rust',
     '接入免费节点能力的 FLClash 本地项目',
@@ -72,6 +70,10 @@ function Invoke-Validate {
     '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
     '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
     '<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+    '<meta name="baiduspider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+    '<meta name="sogou web spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+    '<meta name="360Spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+    '<meta name="Bytespider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
   )) {
     if (-not $index.Contains($directive, [StringComparison]::Ordinal)) { throw "根发布页缺少禁止索引指令：$directive" }
   }
@@ -82,8 +84,14 @@ function Invoke-Validate {
   if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Allow:\s*/\s*$') { throw '根发布页 robots.txt 必须允许爬虫读取 noindex 指令。' }
   if ($robots -match '(?im)^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 不得阻止爬虫读取 noindex 指令。' }
 
-  if ($worker -notmatch "'X-Robots-Tag':\s*'noindex, nofollow, noarchive, nosnippet, noimageindex'") {
+  if ($worker -notmatch "'X-Robots-Tag':\s*'noindex, nofollow, noarchive, nosnippet, noimageindex, unavailable_after: 15 Jul 2026 00:00:00 GMT'") {
     throw '根发布页 Worker 必须为所有响应设置完整 X-Robots-Tag。'
+  }
+  if ($worker -notmatch "headers\.set\('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0'\)") {
+    throw '根发布页 Worker 必须禁用搜索缓存。'
+  }
+  if (([regex]::Matches($index, 'rel="nofollow noopener noreferrer"')).Count -ne 1) {
+    throw '根发布页对外发布入口必须全部声明 nofollow。'
   }
   $publicFiles = @(Get-PublicFiles)
   if ($publicFiles -contains 'sitemap.xml' -or (Test-Path -LiteralPath (Join-Path $project 'sitemap.xml'))) {
@@ -97,11 +105,14 @@ function Invoke-Validate {
   }
   if ($publicFiles -cnotcontains $indexNowFiles[0].Name) { throw 'Worker 公共文件清单缺少 IndexNow 所有权文件。' }
 
-  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 2) {
-    throw '主发布区必须精确展示 LanzouPlus 与 LanzouMax。'
+  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 1) {
+    throw '根发布区只允许展示 LanzouPlus。'
   }
-  if (([regex]::Matches($index, '<dt>版本</dt><dd>1\.0\.0</dd>')).Count -ne 2) {
-    throw '两个已发布项目都必须显示版本 1.0.0。'
+  if (([regex]::Matches($index, '<dt>版本</dt><dd>1\.0\.0</dd>')).Count -ne 1) {
+    throw 'LanzouPlus 必须显示版本 1.0.0。'
+  }
+  if ($index.Contains('LanzouMax', [StringComparison]::Ordinal) -or $index.Contains('lanzoumax.nkbr.cc', [StringComparison]::OrdinalIgnoreCase)) {
+    throw '根发布页不得再建立 LanzouPlus 与 LanzouMax 的搜索关联。'
   }
   if ($index -match '(?i)nekobyran\.lanzou|b00yawz2bg|LanzouMax\.apk|(?:password|passwd|密码)\s*[:=]') {
     throw '根发布页包含禁止公开的私有渠道信息。'
@@ -140,7 +151,7 @@ function Invoke-Validate {
   if ($flClashIconHash -ne 'F3E0BCE43B212427D76A6B1ECA5B6B03C91DE2E166519318D4A1B88FBEB13806') {
     throw 'FLClash++ 图标不是已核验的本地 Android launcher 源图。'
   }
-  'validation=pass;main-releases=2;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0'
+  'validation=pass;main-releases=1;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0'
 }
 
 switch ($Action) {
