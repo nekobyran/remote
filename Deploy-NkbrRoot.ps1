@@ -81,8 +81,8 @@ function Invoke-Validate {
   $robots = Get-Content -LiteralPath $robotsPath -Raw -Encoding UTF8
   if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 必须禁止所有爬虫抓取。' }
   foreach ($bot in @('Googlebot', 'Bingbot', 'Baiduspider', 'Sogou web spider')) {
-    $pattern = '(?im)^User-agent:\s*' + [regex]::Escape($bot) + '$[\s\S]*?^Disallow:\s*/\s*$'
-    if ($robots -notmatch $pattern) { throw "根发布页 robots.txt 缺少 $bot 的禁止抓取规则。" }
+    $pattern = '(?im)^User-agent:\s*' + [regex]::Escape($bot) + '$[\s\S]*?^Allow:\s*/\s*$'
+    if ($robots -notmatch $pattern) { throw "根发布页 robots.txt 必须允许 $bot 读取 noindex 指令。" }
   }
 
   if ($worker -notmatch "'X-Robots-Tag':\s*'noindex, nofollow, noarchive, nosnippet, noimageindex'") {
@@ -92,6 +92,13 @@ function Invoke-Validate {
   if ($publicFiles -contains 'sitemap.xml' -or (Test-Path -LiteralPath (Join-Path $project 'sitemap.xml'))) {
     throw '根发布页不得保留或发布 sitemap.xml。'
   }
+  $indexNowFiles = @(Get-ChildItem -LiteralPath $project -File | Where-Object Name -Match '^[0-9a-f]{32}\.txt$')
+  if ($indexNowFiles.Count -ne 1) { throw '根发布页必须且只能保留一个 IndexNow 所有权文件。' }
+  $indexNowKey = [IO.Path]::GetFileNameWithoutExtension($indexNowFiles[0].Name)
+  if ((Get-Content -LiteralPath $indexNowFiles[0].FullName -Raw -Encoding UTF8).Trim() -cne $indexNowKey) {
+    throw 'IndexNow 所有权文件内容与文件名不一致。'
+  }
+  if ($publicFiles -cnotcontains $indexNowFiles[0].Name) { throw 'Worker 公共文件清单缺少 IndexNow 所有权文件。' }
 
   if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 2) {
     throw '主发布区必须精确展示 LanzouPlus 与 LanzouMax。'

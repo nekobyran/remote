@@ -15,6 +15,7 @@ const FILES = new Set([
   'skill-creator-icon.webp',
   'game-launcher-icon.webp',
   'robots.txt',
+  '7f29c60b70c948c298d130c4ccf1b8c8.txt',
 ]);
 
 const CONTENT_TYPES = {

@@ -2,13 +2,13 @@ User-agent: *
 Disallow: /
 
 User-agent: Googlebot
-Disallow: /
+Allow: /
 
 User-agent: Bingbot
-Disallow: /
+Allow: /
 
 User-agent: Baiduspider
-Disallow: /
+Allow: /
 
 User-agent: Sogou web spider
-Disallow: /
+Allow: /
