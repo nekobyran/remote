@@ -5,12 +5,15 @@ param(
   [string]$ProjectRoot = $PSScriptRoot
 )
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $project = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $workerPath = Join-Path $project 'worker.js'
 $indexPath = Join-Path $project 'index.html'
 $configPath = Join-Path $project 'wrangler.jsonc'
 $stagePath = Join-Path $project '.stage'
+$sponsorRelativePath = 'assets/sponsor.jpg'
+$sponsorSha256 = '1E23933B0C5DA7169FFBBC64EF58B324867ADA4EA38CF1F772F2CF13BA5C300A'
 
 function Get-PublicFiles {
   $worker = Get-Content -LiteralPath $workerPath -Raw -Encoding UTF8
@@ -60,7 +63,9 @@ function Invoke-Validate {
     'Flutter + Rust',
     '接入免费节点能力的 FLClash 本地项目',
     '原生 Java',
-    '<dt>版本</dt><dd>1.0.0</dd>'
+    '<dt>版本</dt><dd>1.0.0</dd>',
+    '<h2 id="sponsor-title">赞助支持</h2>',
+    'src="/assets/sponsor.jpg"'
   )
   foreach ($text in $required) {
     if (-not $index.Contains($text)) { throw "根发布页缺少要求内容：$text" }
@@ -69,10 +74,10 @@ function Invoke-Validate {
   foreach ($directive in @(
     '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
     '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
-    '<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
-    '<meta name="baiduspider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
-    '<meta name="sogou web spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
-    '<meta name="360Spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
+    '<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
+    '<meta name="baiduspider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
+    '<meta name="sogou web spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
+    '<meta name="360Spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />',
     '<meta name="Bytespider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />'
   )) {
     if (-not $index.Contains($directive, [StringComparison]::Ordinal)) { throw "根发布页缺少禁止索引指令：$directive" }
@@ -81,8 +86,8 @@ function Invoke-Validate {
   $robotsPath = Join-Path $project 'robots.txt'
   if (-not (Test-Path -LiteralPath $robotsPath -PathType Leaf)) { throw '根发布页缺少 robots.txt。' }
   $robots = Get-Content -LiteralPath $robotsPath -Raw -Encoding UTF8
-  if ($robots -notmatch '(?im)^User-agent:\s*\*$[\s\S]*?^Allow:\s*/\s*$') { throw '根发布页 robots.txt 必须允许爬虫读取 noindex 指令。' }
-  if ($robots -match '(?im)^Disallow:\s*/\s*$') { throw '根发布页 robots.txt 不得阻止爬虫读取 noindex 指令。' }
+  if ($robots -notmatch '(?im)^User-agent:\s*\*\s*\r?$[\s\S]*?^Allow:\s*/\s*\r?$') { throw '根发布页 robots.txt 必须允许爬虫读取 noindex 指令。' }
+  if ($robots -match '(?im)^Disallow:\s*/\s*\r?$') { throw '根发布页 robots.txt 不得阻止爬虫读取 noindex 指令。' }
 
   if ($worker -notmatch "'X-Robots-Tag':\s*'noindex, nofollow, noarchive, nosnippet, noimageindex, unavailable_after: 15 Jul 2026 00:00:00 GMT'") {
     throw '根发布页 Worker 必须为所有响应设置完整 X-Robots-Tag。'
@@ -93,7 +98,19 @@ function Invoke-Validate {
   if (([regex]::Matches($index, 'rel="nofollow noopener noreferrer"')).Count -ne 1) {
     throw '根发布页对外发布入口必须全部声明 nofollow。'
   }
+
+  if ([regex]::Matches($index, 'src="/assets/sponsor\.jpg"').Count -ne 1 -or $index -match '(?i)(?:raw\.githubusercontent\.com|github\.com/[^"'']*/blob/)[^"'']*sponsor|Screenshot_2026-07-17-22-38-28-48') {
+    throw '根发布页赞助区必须且只能引用一个本地赞助图片。'
+  }
+  $sponsorPath = Join-Path $project $sponsorRelativePath
+  if (-not (Test-Path -LiteralPath $sponsorPath -PathType Leaf)) { throw "根发布页缺少 $sponsorRelativePath。" }
+  if ((Get-FileHash -LiteralPath $sponsorPath -Algorithm SHA256).Hash -cne $sponsorSha256) { throw '根发布页赞助图片 SHA-256 与核验源不一致。' }
+  $sponsorBytes = [IO.File]::ReadAllBytes($sponsorPath)
+  if ($sponsorBytes.Length -lt 4 -or $sponsorBytes[0] -ne 0xFF -or $sponsorBytes[1] -ne 0xD8 -or $sponsorBytes[2] -ne 0xFF -or $sponsorBytes[-2] -ne 0xFF -or $sponsorBytes[-1] -ne 0xD9) { throw '根发布页赞助图片不是完整 JPEG。' }
+  if ($worker -notmatch "jpg:\s*'image/jpeg'") { throw 'Worker 缺少 JPEG 内容类型。' }
+
   $publicFiles = @(Get-PublicFiles)
+  if ($publicFiles -cnotcontains $sponsorRelativePath) { throw 'Worker 公共文件清单缺少赞助图片。' }
   if ($publicFiles -contains 'sitemap.xml' -or (Test-Path -LiteralPath (Join-Path $project 'sitemap.xml'))) {
     throw '根发布页不得保留或发布 sitemap.xml。'
   }
@@ -151,7 +168,7 @@ function Invoke-Validate {
   if ($flClashIconHash -ne 'F3E0BCE43B212427D76A6B1ECA5B6B03C91DE2E166519318D4A1B88FBEB13806') {
     throw 'FLClash++ 图标不是已核验的本地 Android launcher 源图。'
   }
-  'validation=pass;main-releases=1;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0'
+  'validation=pass;main-releases=1;roadmap=8;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0;sponsor=local'
 }
 
 switch ($Action) {
