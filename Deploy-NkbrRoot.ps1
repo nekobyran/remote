@@ -177,10 +177,13 @@ switch ($Action) {
   'Deploy' {
     Invoke-Stage
     Invoke-Validate
+    $npmCache = 'D:\vibecoding\cache\npm'
+    New-Item -ItemType Directory -Path $npmCache -Force | Out-Null
+    $env:npm_config_cache = $npmCache
     $npx = (Get-Command 'npx.cmd' -ErrorAction Stop).Source
-    & $npx --yes wrangler@4.110.0 whoami *> $null
-    if ($LASTEXITCODE -ne 0) { throw 'Cloudflare Wrangler 未登录。' }
-    & $npx --yes wrangler@4.110.0 deploy --config $configPath
-    if ($LASTEXITCODE -ne 0) { throw 'Cloudflare Worker 部署失败。' }
+    $authProcess = Start-Process -FilePath $npx -ArgumentList @('--yes', 'wrangler@4.110.0', 'whoami') -NoNewWindow -Wait -PassThru
+    if ($authProcess.ExitCode -ne 0) { throw 'Cloudflare Wrangler 未登录。' }
+    $deployProcess = Start-Process -FilePath $npx -ArgumentList @('--yes', 'wrangler@4.110.0', 'deploy', '--config', $configPath) -NoNewWindow -Wait -PassThru
+    if ($deployProcess.ExitCode -ne 0) { throw 'Cloudflare Worker 部署失败。' }
   }
 }
