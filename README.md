@@ -1,6 +1,6 @@
 # Neko Releases
 
-`nkbr.cc` 的静态软件目录页，目前仅提供 LanzouPlus 的公开发布入口，并展示开发中的 LanzouYOU 与本地 FLClash++ 项目。其他独立渠道不在根目录公开链接。
+`nkbr.cc` 的静态软件目录页，目前提供 LanzouPlus 与 Kacha 的公开发布入口，并展示仍在开发中的项目。Kacha 的独立发布页位于 `https://kacha.nkbr.cc/`。
 
 ## 本地预览
 
