@@ -58,10 +58,12 @@ function Invoke-Validate {
     'Kacha',
     'LanzouYOU',
     'FLClash++',
+    'CodexMax',
+    'ChatGPT 第三方客户端，支持通过 ChatGPT 插件连接本地服务，并在本地连接 Codex。',
     'https://lanzouplus.nkbr.cc/',
     'https://kacha.nkbr.cc/',
     '<p>2 个软件</p>',
-    '<p>7 个项目</p>',
+    '<p>8 个项目</p>',
     'Flutter + Rust',
     '接入免费节点能力的 FLClash 本地项目',
     '原生 Java',
@@ -159,8 +161,8 @@ function Invoke-Validate {
       throw "Worker 清单中的文件不存在：$relative"
     }
   }
-  if (([regex]::Matches($index, '<li class="roadmap-item">')).Count -ne 7 -or $index -notmatch '(?s)<li class="roadmap-item">.*?<h3>Game Launcher</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>LanzouYOU</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>FLClash\+\+</h3>') {
-    throw 'LanzouYOU 与 FLClash++ 必须位于 Game Launcher 之后的项目区，且原有项目不得丢失。'
+  if (([regex]::Matches($index, '<li class="roadmap-item">')).Count -ne 8 -or $index -notmatch '(?s)<li class="roadmap-item">.*?<h3>Game Launcher</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>LanzouYOU</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>FLClash\+\+</h3>.*?</li>\s*<li class="roadmap-item">.*?<h3>CodexMax</h3>') {
+    throw 'LanzouYOU、FLClash++ 与 CodexMax 必须依次位于 Game Launcher 之后的项目区，且原有项目不得丢失。'
   }
   $flClashItem = [regex]::Match($index, '(?s)<li class="roadmap-item">(?:(?!</li>).)*?<h3>FLClash\+\+</h3>(?:(?!</li>).)*?</li>')
   if (-not $flClashItem.Success -or $flClashItem.Value -match '<a\s') {
@@ -178,7 +180,19 @@ function Invoke-Validate {
   if ($flClashIconHash -ne 'F3E0BCE43B212427D76A6B1ECA5B6B03C91DE2E166519318D4A1B88FBEB13806') {
     throw 'FLClash++ 图标不是已核验的本地 Android launcher 源图。'
   }
-  'validation=pass;main-releases=2;kacha=online;roadmap=7;lanzouyou-after-gamelauncher=true;flclashplusplus-local-only=true;private-assets=0;sponsor=local'
+  $codexMaxItem = [regex]::Match($index, '(?s)<li class="roadmap-item">(?:(?!</li>).)*?<h3>CodexMax</h3>(?:(?!</li>).)*?</li>')
+  if (-not $codexMaxItem.Success -or $codexMaxItem.Value -match '<a\s' -or $codexMaxItem.Value -notmatch '<span class="roadmap-status">开发中</span>') {
+    throw 'CodexMax 必须以无虚构发布链接的开发中状态出现在路线图。'
+  }
+  $codexMaxIconPath = Join-Path $project 'codexmax-icon.png'
+  if ($index -notmatch 'src="/codexmax-icon\.png"' -or -not (Test-Path -LiteralPath $codexMaxIconPath -PathType Leaf)) {
+    throw 'CodexMax 必须引用本地项目的真实 PNG 应用图标。'
+  }
+  $codexMaxIconHash = (Get-FileHash -LiteralPath $codexMaxIconPath -Algorithm SHA256).Hash
+  if ($codexMaxIconHash -ne '31693BAE821DBFA6A4B778CCA6C5B8A6ABB8FE801750448588493F8BE1362233') {
+    throw 'CodexMax 图标不是已核验的本地应用图标。'
+  }
+  'validation=pass;main-releases=2;kacha=online;roadmap=8;lanzouyou-after-gamelauncher=true;codexmax=development;flclashplusplus-local-only=true;private-assets=0;sponsor=local'
 }
 
 switch ($Action) {

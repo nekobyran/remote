@@ -8,6 +8,7 @@ const FILES = new Set([
   'assets/sponsor.jpg',
   'lanzouyou-icon.svg',
   'flclash-plusplus-icon.png',
+  'codexmax-icon.png',
   'nekostar-icon.webp',
   'nekostar-devtools-icon.webp',
   'android-simulator-icon.webp',
