@@ -13,6 +13,7 @@ const FILES = new Set([
   'nekostar-devtools-icon.webp',
   'android-simulator-icon.webp',
   'kacha-icon.webp',
+  'nahida-codex-skin-icon.webp',
   'skill-creator-icon.webp',
   'game-launcher-icon.webp',
   'robots.txt',

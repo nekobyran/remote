@@ -62,7 +62,7 @@ function Invoke-Validate {
     'ChatGPT 第三方客户端，支持通过 ChatGPT 插件连接本地服务，并在本地连接 Codex。',
     'https://lanzouplus.nkbr.cc/',
     'https://kacha.nkbr.cc/',
-    '<p>2 个软件</p>',
+    '<p>3 个软件</p>',
     '<p>8 个项目</p>',
     'Flutter + Rust',
     '接入免费节点能力的 FLClash 本地项目',
@@ -101,7 +101,7 @@ function Invoke-Validate {
   if ($worker -notmatch "headers\.set\('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0'\)") {
     throw '根发布页 Worker 必须禁用搜索缓存。'
   }
-  if (([regex]::Matches($index, 'rel="nofollow noopener noreferrer"')).Count -ne 2) {
+  if (([regex]::Matches($index, 'rel="nofollow noopener noreferrer"')).Count -ne 3) {
     throw '根发布页对外发布入口必须全部声明 nofollow。'
   }
 
@@ -128,14 +128,17 @@ function Invoke-Validate {
   }
   if ($publicFiles -cnotcontains $indexNowFiles[0].Name) { throw 'Worker 公共文件清单缺少 IndexNow 所有权文件。' }
 
-  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 2) {
-    throw '根发布区必须且只能展示 LanzouPlus 与 Kacha。'
+  if (([regex]::Matches($index, '<article class="release-card">')).Count -ne 3) {
+    throw '根发布区必须展示 LanzouPlus、Kacha 与纳西妲 Codex 主题。'
   }
   if (([regex]::Matches($index, '<dt>版本</dt><dd>1\.0\.0</dd>')).Count -ne 2) {
     throw 'LanzouPlus 与 Kacha 必须显示版本 1.0.0。'
   }
   if ($index -notmatch '(?s)<article class="release-card">.*?<h3>Kacha</h3>.*?<dt>状态</dt><dd>已上线</dd>.*?href="https://kacha\.nkbr\.cc/".*?</article>') {
     throw 'Kacha 必须以已上线状态出现在根发布区并链接独立发布页。'
+  }
+  if ($index -notmatch '(?s)<article class="release-card">.*?<h3>纳西妲 · 森息</h3>.*?<dt>版本</dt><dd>1\.5\.0</dd>.*?href="https://github\.com/nekobyran/nahida-codex-skin/releases/tag/v1\.5\.0".*?</article>') {
+    throw '纳西妲 Codex 主题必须以 v1.5.0 已上线状态出现在根发布区。'
   }
   if ($index -match '(?s)<li class="roadmap-item">(?:(?!</li>).)*?<h3>Kacha</h3>') {
     throw '已上线的 Kacha 不得继续出现在路线图。'
@@ -192,7 +195,7 @@ function Invoke-Validate {
   if ($codexMaxIconHash -ne '31693BAE821DBFA6A4B778CCA6C5B8A6ABB8FE801750448588493F8BE1362233') {
     throw 'CodexMax 图标不是已核验的本地应用图标。'
   }
-  'validation=pass;main-releases=2;kacha=online;roadmap=8;lanzouyou-after-gamelauncher=true;codexmax=development;flclashplusplus-local-only=true;private-assets=0;sponsor=local'
+  'validation=pass;main-releases=3;kacha=online;nahida-skin=online;roadmap=8;lanzouyou-after-gamelauncher=true;codexmax=development;flclashplusplus-local-only=true;private-assets=0;sponsor=local'
 }
 
 switch ($Action) {
