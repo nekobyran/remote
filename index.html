@@ -1,347 +1,146 @@
 <!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fff9ef" />
-    <meta
-      name="description"
-      content="Neko By Ran 的独立软件目录与项目发布入口。"
-    />
-    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="baiduspider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="sogou web spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="360Spider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta name="Bytespider" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-    <meta property="og:title" content="Neko Releases — 软件发布页" />
-    <meta
-      property="og:description"
-      content="Neko By Ran 的独立软件目录与项目发布入口。"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nkbr.cc/" />
-    <title>Neko Releases — 软件发布页</title>
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#releases">跳到发布内容</a>
-
-    <div class="page-shell">
-      <header class="site-header" aria-label="站点页眉">
-        <a class="brand" href="/" aria-label="Neko Releases 首页">
-          <span class="brand-mark" aria-hidden="true">N</span>
-          <span>
-            <strong>NEKO</strong>
-            <small>RELEASES</small>
-          </span>
+<html lang="zh-CN" data-motion="on" data-quality="high">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#edf4df">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="NKBR 项目、发布页与开发笔记的统一入口。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="NKBR">
+  <meta property="og:title" content="NKBR · Projects, Releases & Notes">
+  <meta property="og:description" content="项目、发布与笔记，在同一条清晰的轨道上。">
+  <meta property="og:url" content="https://nkbr.cc/">
+  <link rel="canonical" href="https://nkbr.cc/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+  <title>NKBR · Projects, Releases & Notes</title>
+</head>
+<body>
+  <a class="skip-link" href="#projects">跳到项目列表</a>
+  <canvas id="motes" class="motes" aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true"><div class="ambient__wash"></div><div class="ambient__bloom"></div><div class="ambient__grain"></div><svg class="ambient__orbit" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><circle cx="930" cy="310" r="260" pathLength="1"></circle><circle cx="930" cy="310" r="205" pathLength="1"></circle><path d="M-80 720C260 430 690 344 1280 300" pathLength="1"></path><path d="M120 890C430 650 790 565 1260 540" pathLength="1"></path></svg></div>
+  <div class="cursor-light" aria-hidden="true"></div><div class="reading-line" aria-hidden="true"><span></span></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="NKBR 首页顶部"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 4.4c3.9 4.2 7.5 5 11.2 4.6-.1 5.3-2.4 9.1-6.8 11.3-1.8.9-2.9 2.5-3.3 4.3h-2.2c-.4-1.8-1.5-3.4-3.3-4.3C9.2 18.1 6.9 14.3 6.8 9c3.7.4 7.3-.4 11.2-4.6Z"></path><path d="M18 8v13.1M12 11.3c2.3 1.4 4.3 3.3 6 5.7M24 11.3c-2.3 1.4-4.3 3.3-6 5.7"></path></svg><span>NKBR</span></a>
+    <nav class="site-nav" aria-label="站点导航"><a href="#projects">Projects</a><a href="https://blog.nkbr.cc/">Notes</a><a href="#support">Support</a></nav>
+    <button class="motion-toggle" type="button" aria-label="关闭动态效果" aria-pressed="true"><svg class="motion-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2.7-6 5.3-6 8 0s5.3 6 8 0 3.3-6 4 0"></path></svg><svg class="motion-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M7.5 7.5l9 9"></path></svg></button>
+  </header>
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero__index" aria-hidden="true"><span>00</span><i></i><span>∞</span></div>
+      <div class="hero__copy"><p class="eyebrow" data-reveal>PROJECTS · RELEASES · NOTES</p><h1 id="hero-title" data-reveal><span>把项目放进</span><em>同一条轨道。</em></h1><p class="hero__lead" data-reveal>NKBR 是项目发布、版本入口与开发笔记的统一主页。每个项目拥有独立域名、真实状态和清晰边界。</p><div class="hero__actions" data-reveal><a class="action action--primary" href="#projects"><span>浏览全部项目</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></a><a class="action" href="https://blog.nkbr.cc/"><span>阅读开发笔记</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a></div></div>
+      <div class="hero__visual" aria-hidden="true" data-reveal><div class="hero-orbit hero-orbit--outer"><i></i><i></i><i></i></div><div class="hero-orbit hero-orbit--inner"><i></i><i></i></div><div class="hero-core"><svg viewBox="0 0 84 84"><path d="M42 8c9.2 9.9 17.8 11.8 26.6 10.9-.3 12.6-5.8 21.7-16.3 26.9-4.2 2.1-6.9 5.9-7.9 10.2h-4.8c-1-4.3-3.7-8.1-7.9-10.2C21.2 40.6 15.7 31.5 15.4 18.9 24.2 19.8 32.8 17.9 42 8Z"></path><path d="M42 17v31M28 25c5.3 3.2 10 7.7 14 13.4M56 25c-5.3 3.2-10 7.7-14 13.4"></path></svg></div><span class="signal signal--a">BUILD / 01</span><span class="signal signal--b">SHIP / 02</span><span class="signal signal--c">WRITE / 03</span></div>
+      <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    </section>
+    <section class="statement shell" data-reveal><p class="section-no">01 / NETWORK</p><h2>独立发布，统一体验。</h2><p>根站只负责导航，不替项目页伪造版本或下载。每个入口都指向它自己的发布域名。</p></section>
+    <section id="projects" class="projects shell" aria-labelledby="projects-title">
+      <header class="section-head" data-reveal><div><p class="section-no">02 / PROJECTS</p><h2 id="projects-title">当前项目网络</h2></div><p>12 个独立入口</p></header>
+      <div class="project-list">
+      <article class="project-entry project-entry--featured" data-reveal>
+        <a class="project" href="https://nekostar.nkbr.cc/">
+          <span class="project__number">01</span><img src="./nekostar-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>NekoStar</strong><small>资源发现、搜索、网页与本地工具的跨端入口。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android</i><i>Flutter + Rust</i></span><span class="project__status">PRIVATE RELEASE</span><b>↗</b>
         </a>
-        <div class="header-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>发布页在线</span>
-        </div>
-      </header>
-
-      <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-copy">
-            <p class="eyebrow"><span>01</span> / SOFTWARE SHELF</p>
-            <h1 id="hero-title">把好用的软件，<br /><em>放在触手可及的地方。</em></h1>
-            <p class="hero-summary">
-              这里是 Neko By Ran 的软件发布页。没有复杂导航，找到想要的软件，然后出发。
-            </p>
-            <a class="text-link" href="#releases">
-              查看当前发布
-              <span aria-hidden="true">↓</span>
-            </a>
-          </div>
-
-          <div class="hero-art" aria-hidden="true">
-            <div class="orbit orbit-one"></div>
-            <div class="orbit orbit-two"></div>
-            <div class="cat-window">
-              <div class="window-bar">
-                <span></span><span></span><span></span>
-              </div>
-              <div class="cat-face">
-                <i class="ear left"></i><i class="ear right"></i>
-                <div class="eyes"><b></b><b></b></div>
-                <div class="mouth">⌄</div>
-              </div>
-              <p>ready to ship!</p>
-            </div>
-            <span class="spark spark-one">✦</span>
-            <span class="spark spark-two">✦</span>
-          </div>
-        </section>
-
-        <section class="releases" id="releases" aria-labelledby="release-title">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow"><span>02</span> / NOW SHIPPING</p>
-              <h2 id="release-title">当前发布</h2>
-            </div>
-            <p>3 个软件</p>
-          </div>
-
-          <div class="release-stack">
-            <article class="release-card">
-              <div class="app-icon app-icon--plus">
-                <img src="./lanzou-plus-public-icon.svg" alt="" width="256" height="256" />
-              </div>
-              <div class="release-info">
-                <div class="release-title-row">
-                  <div>
-                    <p class="release-kicker">PUBLIC RELEASE</p>
-                    <h3>LanzouPlus</h3>
-                  </div>
-                  <span class="available-badge">公开发布</span>
-                </div>
-                <p class="release-description">
-                  Android 原生 Java 软件库。空源、无主页推荐，支持用户导入规则、多源并发搜索、目录浏览与下载；安装包、公开源码与正式更新均由独立发布页提供。
-                </p>
-                <dl class="release-meta">
-                  <div><dt>版本</dt><dd>1.0.0</dd></div>
-                  <div><dt>端</dt><dd>Android</dd></div>
-                  <div><dt>架构</dt><dd>原生 Java</dd></div>
-                  <div><dt>渠道</dt><dd>公开发布页</dd></div>
-                  <div><dt>状态</dt><dd>正式发布</dd></div>
-                </dl>
-              </div>
-              <a
-                class="download-button"
-                href="https://lanzouplus.nkbr.cc/"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                data-download
-              >
-                <span>查看 LanzouPlus</span>
-                <b aria-hidden="true">↗</b>
-              </a>
-            </article>
-
-            <article class="release-card">
-              <div class="app-icon app-icon--kacha">
-                <img src="./kacha-icon.webp" alt="" width="256" height="256" />
-              </div>
-              <div class="release-info">
-                <div class="release-title-row">
-                  <div>
-                    <p class="release-kicker">PUBLIC RELEASE</p>
-                    <h3>Kacha</h3>
-                  </div>
-                  <span class="available-badge">已上线</span>
-                </div>
-                <p class="release-description">
-                  轻量原生 Windows 截图与批注工具，又名 ScreenshotCat。支持窗口与控件识别、自由框选、箭头与文字批注、多显示器和高 DPI；安装包、校验值与 MIT 开源代码均由独立发布页提供。
-                </p>
-                <dl class="release-meta">
-                  <div><dt>版本</dt><dd>1.0.0</dd></div>
-                  <div><dt>端</dt><dd>Windows</dd></div>
-                  <div><dt>架构</dt><dd>C# · WinUI 3</dd></div>
-                  <div><dt>渠道</dt><dd>公开发布页</dd></div>
-                  <div><dt>状态</dt><dd>已上线</dd></div>
-                </dl>
-              </div>
-              <a
-                class="download-button"
-                href="https://kacha.nkbr.cc/"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                data-download
-              >
-                <span>查看 Kacha</span>
-                <b aria-hidden="true">↗</b>
-              </a>
-            </article>
-
-            <article class="release-card">
-              <div class="app-icon app-icon--dream-skin">
-                <img src="./easy-dream-skin-icon.webp" alt="" width="512" height="512" />
-              </div>
-              <div class="release-info">
-                <div class="release-title-row">
-                  <div>
-                    <p class="release-kicker">PUBLIC RELEASE</p>
-                    <h3>Easy Dream Skin</h3>
-                  </div>
-                  <span class="available-badge">v1.5.5</span>
-                </div>
-                <p class="release-description">
-                  Windows Codex 桌面端的非官方主题与本地控制中心，支持动态壁纸、全局高斯模糊、液态玻璃、主题色和性能控制；公开发布包提供一键安装、恢复能力与 SHA-256 校验。
-                </p>
-                <dl class="release-meta">
-                  <div><dt>版本</dt><dd>1.5.5</dd></div>
-                  <div><dt>端</dt><dd>Windows</dd></div>
-                  <div><dt>类型</dt><dd>Codex Dream Skin</dd></div>
-                  <div><dt>渠道</dt><dd>GitHub Release</dd></div>
-                  <div><dt>源码</dt><dd><a href="https://github.com/nekobyran/easy-dream-skin" target="_blank" rel="noopener noreferrer">公开仓库 ↗</a></dd></div>
-                  <div><dt>许可</dt><dd><a href="https://github.com/nekobyran/easy-dream-skin/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT ↗</a></dd></div>
-                  <div><dt>状态</dt><dd>已上线</dd></div>
-                </dl>
-              </div>
-              <a
-                class="download-button"
-                href="https://github.com/nekobyran/easy-dream-skin/releases/tag/v1.5.5"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                data-download
-              >
-                <span>下载 Easy Dream Skin</span>
-                <b aria-hidden="true">↗</b>
-              </a>
-            </article>
-
-          </div>
-        </section>
-
-        <section class="roadmap" aria-labelledby="roadmap-title">
-          <div class="section-heading roadmap-heading">
-            <div>
-              <p class="eyebrow"><span>03</span> / ON THE WAY</p>
-              <h2 id="roadmap-title">即将发布</h2>
-            </div>
-            <p>8 个项目</p>
-          </div>
-
-          <ol class="roadmap-list">
-            <li class="roadmap-item">
-              <span class="roadmap-number">01</span>
-              <img class="roadmap-icon" src="/nekostar-icon.webp" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>Nekostar</h3>
-                <p>使用 Flutter 与 Rust 构建，面向资源发现与整理的 AI 浏览器。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>Android</span><span>Flutter</span><span>Rust</span>
-              </div>
-              <span class="roadmap-status">计划中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">02</span>
-              <img class="roadmap-icon" src="/nekostar-devtools-icon.webp" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>Nekostar Developer Tools</h3>
-                <p>使用 Flutter 与 Rust 构建的双端开发者工具。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>Android</span><span>Flutter</span><span>Rust</span>
-              </div>
-              <span class="roadmap-status">计划中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">03</span>
-              <img class="roadmap-icon" src="/android-simulator-icon.webp" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>Android Simulator</h3>
-                <p>使用 C++ 构建的 Windows 端 Android 模拟器。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>C++</span>
-              </div>
-              <span class="roadmap-status">计划中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">04</span>
-              <img class="roadmap-icon" src="/skill-creator-icon.webp" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>Skill Creator</h3>
-                <p>使用 Tauri 与 Rust 构建的规范化技能创建工具。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>Tauri</span><span>Rust</span>
-              </div>
-              <span class="roadmap-status">计划中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">05</span>
-              <img class="roadmap-icon" src="/game-launcher-icon.webp" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>Game Launcher</h3>
-                <p>跨端 Galgame 与多引擎游戏启动器；可直接启动游戏，也可将游戏打包到其他平台。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>多端</span><span>Flutter</span>
-              </div>
-              <span class="roadmap-status">计划中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">06</span>
-              <img class="roadmap-icon" src="/lanzouyou-icon.svg" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>LanzouYOU</h3>
-                <p>Flutter + Rust 构建的蓝奏云第三方后台与软件库生成器，面向 Windows 与 Android。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>Android</span><span>Flutter</span><span>Rust</span>
-              </div>
-              <span class="roadmap-status">开发中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">07</span>
-              <img class="roadmap-icon" src="/flclash-plusplus-icon.png" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>FLClash++</h3>
-                <p>基于 Flutter 构建、面向 Android，接入免费节点能力的 FLClash 本地项目。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Android</span><span>Flutter</span><span>免费节点</span><span>FLClash</span>
-              </div>
-              <span class="roadmap-status">开发中</span>
-            </li>
-
-            <li class="roadmap-item">
-              <span class="roadmap-number">08</span>
-              <img class="roadmap-icon" src="/codexmax-icon.png" alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <div class="roadmap-copy">
-                <h3>CodexMax</h3>
-                <p>ChatGPT 第三方客户端，支持通过 ChatGPT 插件连接本地服务，并在本地连接 Codex。</p>
-              </div>
-              <div class="roadmap-tags" aria-label="平台与技术">
-                <span>Windows</span><span>Android</span><span>Flutter</span><span>Rust</span>
-              </div>
-              <span class="roadmap-status">开发中</span>
-            </li>
-          </ol>
-        </section>
-        <section class="sponsor-section" aria-labelledby="sponsor-title">
-          <div class="section-heading sponsor-heading">
-            <div>
-              <p class="eyebrow"><span>04</span> / SUPPORT THE PROJECTS</p>
-              <h2 id="sponsor-title">赞助支持</h2>
-            </div>
-            <p>感谢支持</p>
-          </div>
-          <div class="sponsor-card">
-            <div class="sponsor-copy">
-              <p class="sponsor-kicker">KEEP THE SHELF RUNNING</p>
-              <p>感谢你对这些项目持续维护与发布工作的支持。可使用你信任的扫码工具识别右侧二维码。</p>
-            </div>
-            <figure class="sponsor-code">
-              <img src="/assets/sponsor.jpg" width="641" height="638" alt="赞助支持二维码" />
-              <figcaption>扫码支持项目维护</figcaption>
-            </figure>
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <p>© <span data-year></span> Neko By Ran</p>
-        <p>Made with curiosity <span aria-hidden="true">✦</span> nkbr.cc</p>
-      </footer>
-    </div>
-
-    <div class="toast" role="status" aria-live="polite" data-toast>
-      正在带你前往发布页…
-    </div>
-  </body>
+        <div class="project-meta"><a href="https://github.com/nekobyran/Nekostar" rel="noreferrer">PRIVATE REPOSITORY ↗</a><span>LICENSE NOT DECLARED</span></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://nekostardevtools.nkbr.cc/">
+          <span class="project__number">02</span><img src="./nekostar-devtools-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>NekoStar Developer Tools</strong><small>面向双端开发流程的 Flutter + Rust 工具集。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android</i><i>Development</i></span><span class="project__status">DEVELOPMENT STATUS</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/Nekostar" rel="noreferrer">SHARED PRIVATE REPOSITORY ↗</a><span>NO INDEPENDENT LICENSE</span></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://androidsimulator.nkbr.cc/">
+          <span class="project__number">03</span><img src="./android-simulator-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>Android Simulator</strong><small>Windows 端 Android 运行环境与应用工作台。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android Runtime</i></span><span class="project__status">PRIVATE RELEASE</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/AndroidSimulator" rel="noreferrer">PRIVATE REPOSITORY ↗</a><span>LICENSE NOT DECLARED</span></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://skillcreator.nkbr.cc/">
+          <span class="project__number">04</span><img src="./skill-creator-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>Skill Creator</strong><small>规范化创建、预览与发布 Agent 技能。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Tauri</i><i>Rust</i></span><span class="project__status">PRIVATE RELEASE · APACHE-2.0</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/skill-agentmd-creator" rel="noreferrer">PRIVATE REPOSITORY ↗</a><a href="https://github.com/nekobyran/skill-agentmd-creator/blob/main/LICENSE" rel="noreferrer">APACHE-2.0 ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://gamelauncher.nkbr.cc/">
+          <span class="project__number">05</span><img src="./game-launcher-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>Game Launcher</strong><small>Galgame 与多引擎游戏的跨端启动、管理与打包入口。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android</i><i>Multi-engine</i></span><span class="project__status">PRIVATE RELEASE</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/gamelaucher" rel="noreferrer">PRIVATE REPOSITORY ↗</a><span>LICENSE NOT DECLARED</span></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://lanzouplus.nkbr.cc/">
+          <span class="project__number">06</span><img src="./lanzou-plus-public-icon.svg" alt="" width="72" height="72">
+          <span class="project__copy"><strong>LanzouPlus</strong><small>空源、开源、本地优先的原生 Android 规则库客户端。</small></span>
+          <span class="project__tags"><i>Android</i><i>Open Source</i><i>Java</i></span><span class="project__status">PUBLIC RELEASE · MIT</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/lanzouplus" rel="noreferrer">PUBLIC REPOSITORY ↗</a><a href="https://github.com/nekobyran/lanzouplus/blob/main/LICENSE" rel="noreferrer">MIT LICENSE ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://lanzouyou.nkbr.cc/">
+          <span class="project__number">07</span><img src="./lanzouyou-icon.svg" alt="" width="72" height="72">
+          <span class="project__copy"><strong>LanzouYOU</strong><small>蓝奏云账号、文件与软件库工作流的 Flutter + Rust 客户端。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android</i><i>Flutter + Rust</i></span><span class="project__status">PRIVATE SOURCE · MIT</span><b>↗</b>
+        </a>
+        <div class="project-meta"><span>PRIVATE SOURCE</span><a href="https://lanzouyou.nkbr.cc/LICENSE.txt" rel="noreferrer">MIT LICENSE ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://flclashplus.nkbr.cc/">
+          <span class="project__number">08</span><img src="./flclash-plusplus-icon.png" alt="" width="72" height="72">
+          <span class="project__copy"><strong>FlClashPlus</strong><small>面向授权协作者的私有增强构建与版本入口。</small></span>
+          <span class="project__tags"><i>Android</i><i>Windows</i><i>Private</i></span><span class="project__status">PRIVATE RELEASE · GPL-3.0</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/flclashplus" rel="noreferrer">PRIVATE REPOSITORY ↗</a><a href="https://github.com/nekobyran/flclashplus/blob/main/LICENSE" rel="noreferrer">GPL-3.0 ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://codexmax.nkbr.cc/">
+          <span class="project__number">09</span><img src="./codexmax-icon.png" alt="" width="72" height="72">
+          <span class="project__copy"><strong>CodexMax</strong><small>连接 ChatGPT、插件、本地服务与本地 Codex 的双端客户端。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Android</i><i>Flutter + Rust</i></span><span class="project__status">PRIVATE · SOURCE-AVAILABLE</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/codex-max-private" rel="noreferrer">PRIVATE REPOSITORY ↗</a><a href="https://codexmax.nkbr.cc/LICENSE" rel="noreferrer">NON-COMMERCIAL LICENSE ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://kacha.nkbr.cc/">
+          <span class="project__number">10</span><img src="./kacha-icon.webp" alt="" width="72" height="72">
+          <span class="project__copy"><strong>Kacha</strong><small>轻量原生 Windows 截图、识别与批注工具。</small></span>
+          <span class="project__tags"><i>Windows</i><i>WinUI 3</i><i>Open Source</i></span><span class="project__status">PUBLIC RELEASE · MIT</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/kacha" rel="noreferrer">PUBLIC REPOSITORY ↗</a><a href="https://github.com/nekobyran/kacha/blob/main/LICENSE" rel="noreferrer">MIT LICENSE ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://github.com/nekobyran/easy-dream-skin/releases/tag/v1.5.5">
+          <span class="project__number">11</span><img src="./easy-dream-skin-icon.png" alt="" width="72" height="72">
+          <span class="project__copy"><strong>Easy Dream Skin</strong><small>为 Codex 桌面端提供动态壁纸、全局高斯模糊、玻璃效果与性能控制。</small></span>
+          <span class="project__tags"><i>Windows</i><i>Codex Theme</i><i>Open Source</i></span><span class="project__status">PUBLIC RELEASE · MIT</span><b>↗</b>
+        </a>
+        <div class="project-meta"><a href="https://github.com/nekobyran/easy-dream-skin" rel="noreferrer">PUBLIC REPOSITORY ↗</a><a href="https://github.com/nekobyran/easy-dream-skin/blob/main/LICENSE" rel="noreferrer">MIT LICENSE ↗</a></div>
+      </article>
+      <article class="project-entry" data-reveal>
+        <a class="project" href="https://blog.nkbr.cc/">
+          <span class="project__number">12</span><span class="project__note-icon" aria-hidden="true">N</span>
+          <span class="project__copy"><strong>NKBR Blog</strong><small>项目说明、设计记录与开发过程的长期笔记。</small></span>
+          <span class="project__tags"><i>Notes</i><i>Articles</i></span><span class="project__status">ONLINE</span><b>↗</b>
+        </a>
+        <div class="project-meta"><span>EDITORIAL SITE</span><span>NO INDEPENDENT LICENSE</span></div>
+      </article>
+      </div>
+    </section>
+    <section class="note shell" aria-labelledby="note-title" data-reveal><div><p class="section-no">03 / LATEST NOTE</p><h2 id="note-title">LanzouPlus：从空源开始，重新掌控自己的规则库</h2><p>第一篇项目笔记，解释空源、原生轻量和可验证发布的产品边界。</p></div><a class="action action--dark" href="https://blog.nkbr.cc/posts/lanzouplus/"><span>阅读文章</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a></section>
+    <section id="support" class="support shell" aria-labelledby="support-title"><div data-reveal><p class="section-no">04 / SUPPORT</p><h2 id="support-title">让项目继续生长。</h2><p>感谢你对开发、构建、发布和长期维护工作的支持。请使用你信任的扫码工具识别二维码。</p></div><figure data-reveal><img src="./assets/sponsor.jpg" width="641" height="638" alt="赞助支持二维码" loading="lazy" decoding="async"><figcaption>SPONSOR · NKBR</figcaption></figure></section>
+  </main>
+  <footer class="footer shell"><span>© <span data-year></span> NKBR</span><a href="https://github.com/nekobyran/remote" rel="noreferrer">ROOT REPOSITORY ↗</a><span>LICENSE NOT DECLARED</span><a href="#top">BACK TO TOP ↑</a></footer>
+</body>
 </html>

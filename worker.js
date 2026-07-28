@@ -1,102 +1,35 @@
-const ORIGIN = 'https://raw.githubusercontent.com/nekobyran/remote/7c749b772b830435f7a1603d2108153622e7f516';
-const FILES = new Set([
-  'index.html',
-  'styles.css',
-  'script.js',
-  'favicon.svg',
-  'lanzou-plus-public-icon.svg',
-  'assets/sponsor.jpg',
-  'lanzouyou-icon.svg',
-  'flclash-plusplus-icon.png',
-  'codexmax-icon.png',
-  'nekostar-icon.webp',
-  'nekostar-devtools-icon.webp',
-  'android-simulator-icon.webp',
-  'kacha-icon.webp',
-  'easy-dream-skin-icon.webp',
-  'skill-creator-icon.webp',
-  'game-launcher-icon.webp',
-  'robots.txt',
-  '7f29c60b70c948c298d130c4ccf1b8c8.txt',
-]);
-
-const CONTENT_TYPES = {
-  html: 'text/html; charset=utf-8',
-  css: 'text/css; charset=utf-8',
-  js: 'application/javascript; charset=utf-8',
-  svg: 'image/svg+xml; charset=utf-8',
-  png: 'image/png',
-  jpg: 'image/jpeg',
-  webp: 'image/webp',
-  txt: 'text/plain; charset=utf-8',
-  xml: 'application/xml; charset=utf-8',
-};
-
-addEventListener('fetch', (event) => {
-  event.respondWith(handleRequest(event.request));
-});
-
-async function handleRequest(request) {
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    const headers = securityHeaders('text/plain; charset=utf-8');
-    headers.set('Allow', 'GET, HEAD');
-    return new Response('Method Not Allowed', {
-      status: 405,
-      headers,
-    });
-  }
-
-  const url = new URL(request.url);
-  let path;
-  try {
-    path = decodeURIComponent(url.pathname).replace(/^\/+|\/+$/g, '') || 'index.html';
-  } catch {
-    return new Response('Bad Request', {
-      status: 400,
-      headers: securityHeaders('text/plain; charset=utf-8'),
-    });
-  }
-
-  if (!FILES.has(path)) {
-    return new Response('Not Found', {
-      status: 404,
-      headers: securityHeaders('text/plain; charset=utf-8'),
-    });
-  }
-
-  const originResponse = await fetch(`${ORIGIN}/${path}`, {
-    headers: { 'Cache-Control': 'no-cache' },
-    cf: { cacheTtl: 0 },
-  });
-
-  if (!originResponse.ok) {
-    return new Response('Release page is temporarily unavailable.', {
-      status: 502,
-      headers: securityHeaders('text/plain; charset=utf-8'),
-    });
-  }
-
-  const extension = path.split('.').pop();
-  const headers = securityHeaders(CONTENT_TYPES[extension] || 'application/octet-stream');
-  headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
-  headers.set('Pragma', 'no-cache');
-  headers.set('Expires', '0');
-  headers.set('X-NKBR-Origin-Commit', '7c749b772b830435f7a1603d2108153622e7f516');
-
-  return new Response(request.method === 'HEAD' ? null : originResponse.body, {
-    status: 200,
-    headers,
-  });
-}
+const HTML_CACHE = 'public, max-age=0, must-revalidate, no-transform';
+const STATIC_CACHE = 'public, max-age=0, must-revalidate';
 
 function securityHeaders(contentType) {
-  return new Headers({
-    'Content-Type': contentType,
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; style-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
-    'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet, noimageindex, unavailable_after: 15 Jul 2026 00:00:00 GMT',
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  });
+  const headers = new Headers();
+  headers.set('Content-Security-Policy', "default-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; connect-src 'self'; img-src 'self' data:; media-src 'none'; font-src 'self'; style-src 'self'; script-src 'self'; manifest-src 'self'; worker-src 'none'; upgrade-insecure-requests");
+  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  headers.set('Permissions-Policy', 'accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()');
+  headers.set('X-Content-Type-Options', 'nosniff');
+  headers.set('X-Frame-Options', 'DENY');
+  headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  headers.set('Cross-Origin-Resource-Policy', 'same-origin');
+  headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  headers.set('Cache-Control', contentType?.includes('text/html') ? HTML_CACHE : STATIC_CACHE);
+  return headers;
 }
+
+export default {
+  async fetch(request, env) {
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
+      const headers = securityHeaders('text/plain');
+      headers.set('Allow', 'GET, HEAD');
+      return new Response('Method Not Allowed', { status: 405, headers });
+    }
+    const assetResponse = await env.ASSETS.fetch(request);
+    const contentType = assetResponse.headers.get('Content-Type') || 'application/octet-stream';
+    const headers = new Headers(assetResponse.headers);
+    for (const [key, value] of securityHeaders(contentType)) headers.set(key, value);
+    return new Response(request.method === 'HEAD' ? null : assetResponse.body, {
+      status: assetResponse.status,
+      statusText: assetResponse.statusText,
+      headers
+    });
+  }
+};
