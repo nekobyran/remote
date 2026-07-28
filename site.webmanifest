@@ -1,0 +1,18 @@
+{
+  "name": "NKBR Projects, Releases & Notes",
+  "short_name": "NKBR",
+  "description": "NKBR 项目、发布页与开发笔记的统一入口。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7faef",
+  "theme_color": "#edf4df",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
