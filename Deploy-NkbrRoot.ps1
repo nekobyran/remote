@@ -24,7 +24,7 @@ $projectUrls = @(
     'https://androidsimulator.nkbr.cc/', 'https://skillcreator.nkbr.cc/', 'https://gamelauncher.nkbr.cc/',
     'https://lanzouplus.nkbr.cc/', 'https://lanzouyou.nkbr.cc/', 'https://flclashplus.nkbr.cc/',
     'https://codexmax.nkbr.cc/', 'https://kacha.nkbr.cc/',
-    'https://github.com/nekobyran/easy-dream-skin/releases/tag/v1.5.5'
+    'https://easydreamskin.nkbr.cc/'
 )
 
 function Invoke-Stage {
@@ -50,7 +50,7 @@ function Invoke-Validate {
     foreach ($url in $projectUrls) {
         if (-not $html.Contains($url, [StringComparison]::Ordinal)) { throw "Missing project URL: $url" }
     }
-    foreach ($marker in @('motion-toggle', 'data-reveal', 'assets/sponsor.jpg', '12 个独立入口', 'project-meta', 'ROOT REPOSITORY', 'LICENSE NOT DECLARED', 'https://github.com/nekobyran/kacha', 'https://github.com/nekobyran/lanzouplus', 'https://codexmax.nkbr.cc/', 'https://github.com/nekobyran/easy-dream-skin', 'PUBLIC RELEASE · MIT')) {
+    foreach ($marker in @('motion-toggle', 'data-reveal', 'assets/sponsor.jpg', '12 个独立入口', 'project-meta', 'ROOT REPOSITORY', 'LICENSE NOT DECLARED', 'https://github.com/nekobyran/kacha', 'https://github.com/nekobyran/lanzouplus', 'https://codexmax.nkbr.cc/', 'https://easydreamskin.nkbr.cc/', 'https://github.com/nekobyran/easy-dream-skin', 'PUBLIC RELEASE · MIT')) {
         if (-not $html.Contains($marker, [StringComparison]::Ordinal)) { throw "Missing portal marker: $marker" }
     }
     foreach ($forbidden in @('PRIVATE PREVIEW', 'TEST BUILD', 'VERIFICATION STATUS', 'github.com/nekobyran/ScreenshotCat', 'codexmax.nkbr.cc/release/', 'lanzoumax')) {
@@ -140,8 +140,17 @@ function Invoke-Wrangler {
 }
 
 function Invoke-Status {
-    $response = Invoke-WebRequest -Uri $siteUrl -TimeoutSec 30 -MaximumRedirection 4 -UseBasicParsing
-    if ($response.StatusCode -ne 200 -or -not ([string]$response.Content).Contains('12 个独立入口')) { throw 'Production portal marker is missing.' }
+    $response = $null
+    foreach ($attempt in 1..5) {
+        $statusUri = '{0}?status={1}-{2}' -f $siteUrl, [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds(), $attempt
+        $candidate = Invoke-WebRequest -Uri $statusUri -Headers @{ 'Cache-Control' = 'no-cache' } -TimeoutSec 30 -MaximumRedirection 4 -UseBasicParsing
+        if ($candidate.StatusCode -eq 200 -and ([string]$candidate.Content).Contains('12 个独立入口')) {
+            $response = $candidate
+            break
+        }
+        Start-Sleep -Seconds 1
+    }
+    if ($null -eq $response) { throw 'Production portal marker is missing after five cache-busted checks.' }
     foreach ($header in @('Content-Security-Policy', 'Strict-Transport-Security', 'X-Content-Type-Options')) {
         if (-not $response.Headers[$header]) { throw "Missing production header: $header" }
     }
