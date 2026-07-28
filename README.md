@@ -1,23 +1,16 @@
-# NKBR root portal
+# Neko Releases
 
-`https://nkbr.cc/` is the unified entry point for NKBR projects, release pages, and notes.
+`nkbr.cc` 的静态软件目录页，目前提供 LanzouPlus 与 Kacha 的公开发布入口，并展示仍在开发中的项目。Kacha 的独立发布页位于 `https://kacha.nkbr.cc/`。
 
-## Architecture
+## 本地预览
 
-- Source: this directory
-- Staged assets: `.stage/`
-- Runtime: Cloudflare Worker + Static Assets binding
-- Custom domain: `nkbr.cc`
-- No remote GitHub raw-file origin
-- Strict same-origin CSP, HSTS, `nosniff`, and HTML `no-transform`
+这是零构建依赖的静态站点，可在仓库根目录启动任意静态文件服务器预览。
 
-## Commands
+## 发布
 
-```powershell
-pwsh -NoProfile -File .\Deploy-NkbrRoot.ps1 -Action Validate
-pwsh -NoProfile -File .\Deploy-NkbrRoot.ps1 -Action DryRun
-pwsh -NoProfile -File .\Deploy-NkbrRoot.ps1 -Action Deploy
-pwsh -NoProfile -File .\Deploy-NkbrRoot.ps1 -Action Status
-```
+- 源码：GitHub `main` 分支
+- 静态源：GitHub `nekobyran/remote`
+- 边缘入口：Cloudflare Worker（只代理仓库中的公开静态文件）
+- 自定义域名：`nkbr.cc`
 
-The portal links to eleven independent project domains. It does not proxy downloads or invent release availability.
+边缘入口固定读取已发布的 Git 提交，避免半更新状态；更新静态文件后，将 `worker.js` 中的提交版本改为最新提交并重新部署。
