@@ -14,7 +14,7 @@ $config = Join-Path $root 'wrangler.jsonc'
 $siteUrl = 'https://nkbr.cc/'
 $publicFiles = @(
     'index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '404.html',
-    'home.json', 'gal.json', '7f29c60b70c948c298d130c4ccf1b8c8.txt', 'assets/sponsor.jpg',
+    'home.json', 'gal.json', '7f29c60b70c948c298d130c4ccf1b8c8.txt', 'assets/sponsor.jpg', 'flanime/index.html',
     'android-simulator-icon.webp', 'codexmax-icon.png', 'easy-dream-skin-icon.png', 'flclash-plusplus-icon.png', 'flanime-icon.svg', 'game-launcher-icon.webp',
     'kacha-icon.webp', 'lanzou-plus-public-icon.svg', 'lanzouyou-icon.svg', 'nekostar-devtools-icon.webp',
     'nekostar-icon.webp', 'skill-creator-icon.webp'
