@@ -15,7 +15,7 @@ $siteUrl = 'https://nkbr.cc/'
 $publicFiles = @(
     'index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '404.html',
     'home.json', 'gal.json', '7f29c60b70c948c298d130c4ccf1b8c8.txt', 'assets/sponsor.jpg',
-    'android-simulator-icon.webp', 'codexmax-icon.png', 'easy-dream-skin-icon.png', 'flclash-plusplus-icon.png', 'game-launcher-icon.webp',
+    'android-simulator-icon.webp', 'codexmax-icon.png', 'easy-dream-skin-icon.png', 'flclash-plusplus-icon.png', 'flanime-icon.svg', 'game-launcher-icon.webp',
     'kacha-icon.webp', 'lanzou-plus-public-icon.svg', 'lanzouyou-icon.svg', 'nekostar-devtools-icon.webp',
     'nekostar-icon.webp', 'skill-creator-icon.webp'
 )
@@ -24,7 +24,7 @@ $projectUrls = @(
     'https://androidsimulator.nkbr.cc/', 'https://skillcreator.nkbr.cc/', 'https://gamelauncher.nkbr.cc/',
     'https://lanzouplus.nkbr.cc/', 'https://lanzouyou.nkbr.cc/', 'https://flclashplus.nkbr.cc/',
     'https://codexmax.nkbr.cc/', 'https://kacha.nkbr.cc/',
-    'https://easydreamskin.nkbr.cc/'
+    'https://easydreamskin.nkbr.cc/', 'https://nkbr.cc/flanime/'
 )
 
 function Invoke-Stage {
@@ -50,7 +50,7 @@ function Invoke-Validate {
     foreach ($url in $projectUrls) {
         if (-not $html.Contains($url, [StringComparison]::Ordinal)) { throw "Missing project URL: $url" }
     }
-    foreach ($marker in @('motion-toggle', 'data-reveal', 'assets/sponsor.jpg', '12 个独立入口', 'project-meta', 'ROOT REPOSITORY', 'LICENSE NOT DECLARED', 'https://github.com/nekobyran/kacha', 'https://github.com/nekobyran/lanzouplus', 'https://codexmax.nkbr.cc/', 'https://easydreamskin.nkbr.cc/', 'https://github.com/nekobyran/easy-dream-skin', 'PUBLIC RELEASE · MIT')) {
+    foreach ($marker in @('motion-toggle', 'data-reveal', 'assets/sponsor.jpg', '13 个独立入口', 'project-meta', 'ROOT REPOSITORY', 'LICENSE NOT DECLARED', 'https://github.com/nekobyran/kacha', 'https://github.com/nekobyran/lanzouplus', 'https://codexmax.nkbr.cc/', 'https://easydreamskin.nkbr.cc/', 'https://github.com/nekobyran/easy-dream-skin', 'https://nkbr.cc/flanime/', 'flanime-icon.svg', 'PUBLIC RELEASE · MIT')) {
         if (-not $html.Contains($marker, [StringComparison]::Ordinal)) { throw "Missing portal marker: $marker" }
     }
     foreach ($forbidden in @('PRIVATE PREVIEW', 'TEST BUILD', 'VERIFICATION STATUS', 'github.com/nekobyran/ScreenshotCat', 'codexmax.nkbr.cc/release/', 'lanzoumax')) {
@@ -96,7 +96,7 @@ function Invoke-Validate {
     if ($scriptCheck.ExitCode -ne 0) { throw 'script.js syntax check failed.' }
     $workerCheck = Start-Process -FilePath $node -ArgumentList @('--check', (Join-Path $root 'worker.js')) -WorkingDirectory $root -WindowStyle Hidden -Wait -PassThru
     if ($workerCheck.ExitCode -ne 0) { throw 'worker.js syntax check failed.' }
-    Write-Output 'validation=pass;projects=12;csp=strict;motion=adaptive;assets=local'
+    Write-Output 'validation=pass;projects=13;csp=strict;motion=adaptive;assets=local'
 }
 
 function Invoke-Wrangler {
@@ -144,7 +144,7 @@ function Invoke-Status {
     foreach ($attempt in 1..5) {
         $statusUri = '{0}?status={1}-{2}' -f $siteUrl, [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds(), $attempt
         $candidate = Invoke-WebRequest -Uri $statusUri -Headers @{ 'Cache-Control' = 'no-cache' } -TimeoutSec 30 -MaximumRedirection 4 -UseBasicParsing
-        if ($candidate.StatusCode -eq 200 -and ([string]$candidate.Content).Contains('12 个独立入口')) {
+        if ($candidate.StatusCode -eq 200 -and ([string]$candidate.Content).Contains('13 个独立入口')) {
             $response = $candidate
             break
         }
@@ -155,7 +155,7 @@ function Invoke-Status {
         if (-not $response.Headers[$header]) { throw "Missing production header: $header" }
     }
     if ([string]$response.Headers['Cache-Control'] -notmatch 'no-transform') { throw 'Production HTML is missing no-transform.' }
-    Write-Output "status=pass;url=$siteUrl;http=200;projects=12;security=pass"
+    Write-Output "status=pass;url=$siteUrl;http=200;projects=13;security=pass"
 }
 
 switch ($Action) {
