@@ -1,0 +1,302 @@
+{
+  "codexmax": {
+    "version": "codex-max-v7.0.1-focus-stability.1",
+    "date": "2026-10-12",
+    "preview": false,
+    "url": "https://github.com/nekobyran/codex-max-private/releases/tag/codex-max-v7.0.1-focus-stability.1",
+    "assets": [
+      {
+        "name": "codexmax.exe",
+        "size": 16913408,
+        "url": "https://github.com/nekobyran/codex-max-private/releases/download/codex-max-v7.0.1-focus-stability.1/codexmax.exe"
+      },
+      {
+        "name": "CodexMax-v7.0.1-plugin.zip",
+        "size": 63548,
+        "url": "https://github.com/nekobyran/codex-max-private/releases/download/codex-max-v7.0.1/CodexMax-v7.0.1-plugin.zip"
+      },
+      {
+        "name": "CodexMax-v7.0.1-web.zip",
+        "size": 15269117,
+        "url": "https://github.com/nekobyran/codex-max-private/releases/download/codex-max-v7.0.1/CodexMax-v7.0.1-web.zip"
+      },
+      {
+        "name": "CodexMax-v7.0.1-windows-x64-setup.exe",
+        "size": 66709949,
+        "url": "https://github.com/nekobyran/codex-max-private/releases/download/codex-max-v7.0.1/CodexMax-v7.0.1-windows-x64-setup.exe"
+      },
+      {
+        "name": "CodexMax-v7.0.1-windows-x64.zip",
+        "size": 106250165,
+        "url": "https://github.com/nekobyran/codex-max-private/releases/download/codex-max-v7.0.1/CodexMax-v7.0.1-windows-x64.zip"
+      }
+    ]
+  },
+  "androiddesktop": {
+    "version": "v0.3.34",
+    "date": "2026-10-10",
+    "preview": false,
+    "url": "https://github.com/nekobyran/Androiddesktop/releases/tag/v0.3.34",
+    "assets": [
+      {
+        "name": "Androiddesktop-release-armeabi-v7a.apk",
+        "size": 4938443,
+        "url": "https://github.com/nekobyran/Androiddesktop/releases/download/v0.3.34/Androiddesktop-release-armeabi-v7a.apk"
+      },
+      {
+        "name": "AndroiddesktopRemote-1.0.1-windows-x64.zip",
+        "size": 34093134,
+        "url": "https://github.com/nekobyran/Androiddesktop/releases/download/v0.3.34/AndroiddesktopRemote-1.0.1-windows-x64.zip"
+      },
+      {
+        "name": "Androiddesktop-release-x86.apk",
+        "size": 6523563,
+        "url": "https://github.com/nekobyran/Androiddesktop/releases/download/v0.3.34/Androiddesktop-release-x86.apk"
+      },
+      {
+        "name": "Androiddesktop-release-x86_64.apk",
+        "size": 6679223,
+        "url": "https://github.com/nekobyran/Androiddesktop/releases/download/v0.3.34/Androiddesktop-release-x86_64.apk"
+      },
+      {
+        "name": "Androiddesktop-release-arm64-v8a.apk",
+        "size": 6097603,
+        "url": "https://github.com/nekobyran/Androiddesktop/releases/download/v0.3.34/Androiddesktop-release-arm64-v8a.apk"
+      }
+    ]
+  },
+  "flutterdesign": {
+    "version": "v1.5.5",
+    "date": "2026-10-23",
+    "preview": false,
+    "url": "https://github.com/nekobyran/flutter-design/releases/tag/v1.5.5",
+    "assets": [
+      {
+        "name": "flutter-app-design-standard-template-v1.5.5.zip",
+        "size": 651141,
+        "url": "https://github.com/nekobyran/flutter-design/releases/download/v1.5.5/flutter-app-design-standard-template-v1.5.5.zip"
+      },
+      {
+        "name": "flutter-design-v1.5.5-android-arm64-v8a.apk",
+        "size": 11306362,
+        "url": "https://github.com/nekobyran/flutter-design/releases/download/v1.5.5/flutter-design-v1.5.5-android-arm64-v8a.apk"
+      },
+      {
+        "name": "flutter-design-v1.5.5-android-armeabi-v7a.apk",
+        "size": 10894032,
+        "url": "https://github.com/nekobyran/flutter-design/releases/download/v1.5.5/flutter-design-v1.5.5-android-armeabi-v7a.apk"
+      },
+      {
+        "name": "flutter-design-v1.5.5-android-x86_64.apk",
+        "size": 11501437,
+        "url": "https://github.com/nekobyran/flutter-design/releases/download/v1.5.5/flutter-design-v1.5.5-android-x86_64.apk"
+      }
+    ]
+  },
+  "gamelauncher": {
+    "version": "v1.1.0",
+    "date": "2026-08-31",
+    "preview": false,
+    "url": "https://github.com/nekobyran/gamelauncher/releases/tag/v1.1.0",
+    "assets": [
+      {
+        "name": "GameLauncher-1.1.0-windows-x64-portable.tar.zst",
+        "size": 774244104,
+        "url": "https://github.com/nekobyran/gamelauncher/releases/download/v1.1.0/GameLauncher-1.1.0-windows-x64-portable.tar.zst"
+      },
+      {
+        "name": "gamelauncher-android-stable.apk",
+        "size": 11772997,
+        "url": "https://github.com/nekobyran/gamelauncher/releases/download/v1.1.0/gamelauncher-android-stable.apk"
+      }
+    ]
+  },
+  "flacgn": {
+    "version": "v1.1.44",
+    "date": "2026-09-27",
+    "preview": false,
+    "url": "https://github.com/nekobyran/flacgn/releases/tag/v1.1.44",
+    "assets": [
+      {
+        "name": "flanime-android-arm64-v8a-v1.1.44.apk",
+        "size": 47397660,
+        "url": "https://github.com/nekobyran/flacgn/releases/download/v1.1.44/flanime-android-arm64-v8a-v1.1.44.apk"
+      },
+      {
+        "name": "flanime-android-armeabi-v7a-v1.1.44.apk",
+        "size": 41646332,
+        "url": "https://github.com/nekobyran/flacgn/releases/download/v1.1.44/flanime-android-armeabi-v7a-v1.1.44.apk"
+      },
+      {
+        "name": "flanime-android-x86_64-v1.1.44.apk",
+        "size": 53711498,
+        "url": "https://github.com/nekobyran/flacgn/releases/download/v1.1.44/flanime-android-x86_64-v1.1.44.apk"
+      },
+      {
+        "name": "flanime-windows-x64-v1.1.44.zip",
+        "size": 41465250,
+        "url": "https://github.com/nekobyran/flacgn/releases/download/v1.1.44/flanime-windows-x64-v1.1.44.zip"
+      }
+    ]
+  },
+  "flclashplus": {
+    "version": "v0.8.94-plus.6",
+    "date": "2026-08-15",
+    "preview": false,
+    "url": "https://github.com/nekobyran/flclashplus/releases/tag/v0.8.94-plus.6",
+    "assets": [
+      {
+        "name": "FlClashPlus-0.8.94-plus.6-android-arm64-v8a.apk",
+        "size": 54896708,
+        "url": "https://github.com/nekobyran/flclashplus/releases/download/v0.8.94-plus.6/FlClashPlus-0.8.94-plus.6-android-arm64-v8a.apk"
+      },
+      {
+        "name": "FlClashPlus-0.8.94-plus.6-windows-x64-portable.zip",
+        "size": 60632429,
+        "url": "https://github.com/nekobyran/flclashplus/releases/download/v0.8.94-plus.6/FlClashPlus-0.8.94-plus.6-windows-x64-portable.zip"
+      },
+      {
+        "name": "FlClashPlus-0.8.94-plus.6-windows-x64-setup.exe",
+        "size": 38393124,
+        "url": "https://github.com/nekobyran/flclashplus/releases/download/v0.8.94-plus.6/FlClashPlus-0.8.94-plus.6-windows-x64-setup.exe"
+      }
+    ]
+  },
+  "ainavol": {
+    "version": "ainavol-20261003-150945886",
+    "date": "2026-10-03",
+    "preview": false,
+    "url": "https://github.com/nekobyran/Ainavol/releases/tag/ainavol-20261003-150945886",
+    "assets": [
+      {
+        "name": "Ainavol-20261003-150945886.zip",
+        "size": 175778653,
+        "url": "https://github.com/nekobyran/Ainavol/releases/download/ainavol-20261003-150945886/Ainavol-20261003-150945886.zip"
+      }
+    ]
+  },
+  "lanzouplus": {
+    "version": "v1.8.7",
+    "date": "2026-10-14",
+    "preview": false,
+    "url": "https://github.com/nekobyran/lanzouplus/releases/tag/v1.8.7",
+    "assets": [
+      {
+        "name": "LanzouPlus.apk",
+        "size": 424435,
+        "url": "https://github.com/nekobyran/lanzouplus/releases/download/v1.8.7/LanzouPlus.apk"
+      }
+    ]
+  },
+  "androidsimulator": {
+    "version": "v1.1.1",
+    "date": "2026-09-29",
+    "preview": false,
+    "url": "https://github.com/nekobyran/AndroidSimulator/releases/tag/v1.1.1",
+    "assets": [
+      {
+        "name": "AndroidSimulator-Setup.exe",
+        "size": 89120821,
+        "url": "https://github.com/nekobyran/AndroidSimulator/releases/download/v1.1.1/AndroidSimulator-Setup.exe"
+      }
+    ]
+  },
+  "nekocommunity": {
+    "version": "v0.1.21",
+    "date": "2026-10-15",
+    "preview": false,
+    "url": "https://github.com/nekobyran/neko-community/releases/tag/v0.1.21",
+    "assets": [
+      {
+        "name": "nekostar-community-admin-android-arm64-v8a-v0.1.21.apk",
+        "size": 30550340,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-admin-android-arm64-v8a-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-admin-android-armeabi-v7a-v0.1.21.apk",
+        "size": 24272656,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-admin-android-armeabi-v7a-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-admin-android-x86_64-v0.1.21.apk",
+        "size": 33590592,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-admin-android-x86_64-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-admin-windows-x64-v0.1.21.zip",
+        "size": 18773187,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-admin-windows-x64-v0.1.21.zip"
+      },
+      {
+        "name": "nekostar-community-user-android-arm64-v8a-v0.1.21.apk",
+        "size": 31885297,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-user-android-arm64-v8a-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-user-android-armeabi-v7a-v0.1.21.apk",
+        "size": 25705919,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-user-android-armeabi-v7a-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-user-android-x86_64-v0.1.21.apk",
+        "size": 34909162,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-user-android-x86_64-v0.1.21.apk"
+      },
+      {
+        "name": "nekostar-community-user-windows-x64-v0.1.21.zip",
+        "size": 19398595,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-user-windows-x64-v0.1.21.zip"
+      },
+      {
+        "name": "nekostar-community-web-v0.1.21.zip",
+        "size": 49794392,
+        "url": "https://github.com/nekobyran/neko-community/releases/download/v0.1.21/nekostar-community-web-v0.1.21.zip"
+      }
+    ]
+  },
+  "skillcreator": {
+    "url": "https://github.com/nekobyran/skill-agentmd-creator/releases",
+    "assets": []
+  },
+  "flpiliplus": {
+    "version": "v0.1.4-private.1+5",
+    "date": "2026-08-24",
+    "preview": true,
+    "url": "https://github.com/nekobyran/flpiliplus/releases/tag/v0.1.4-private.1%2B5",
+    "assets": [
+      {
+        "name": "flpili-cli-windows-x64.exe",
+        "size": 3940864,
+        "url": "https://github.com/nekobyran/flpiliplus/releases/download/v0.1.4-private.1%2B5/flpili-cli-windows-x64.exe"
+      },
+      {
+        "name": "flpiliplus-android-arm64-release.apk",
+        "size": 50326907,
+        "url": "https://github.com/nekobyran/flpiliplus/releases/download/v0.1.4-private.1%2B5/flpiliplus-android-arm64-release.apk"
+      },
+      {
+        "name": "flpiliplus-windows-x64.zip",
+        "size": 42942976,
+        "url": "https://github.com/nekobyran/flpiliplus/releases/download/v0.1.4-private.1%2B5/flpiliplus-windows-x64.zip"
+      }
+    ]
+  },
+  "kacha": {
+    "version": "v1.0.9",
+    "date": "2026-10-10",
+    "preview": false,
+    "url": "https://github.com/nekobyran/kacha/releases/tag/v1.0.9",
+    "assets": [
+      {
+        "name": "ScreenshotCat-v1.0.9-win-x64-setup.exe",
+        "size": 106382458,
+        "url": "https://github.com/nekobyran/kacha/releases/download/v1.0.9/ScreenshotCat-v1.0.9-win-x64-setup.exe"
+      },
+      {
+        "name": "ScreenshotCat-v1.0.9-win-x64.zip",
+        "size": 7771814,
+        "url": "https://github.com/nekobyran/kacha/releases/download/v1.0.9/ScreenshotCat-v1.0.9-win-x64.zip"
+      }
+    ]
+  }
+}

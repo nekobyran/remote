@@ -1,0 +1,15 @@
+[
+  {"id":"codexmax","name":"CodexMax","description":"连接 Codex、ChatGPT 与本地工具的工作台。","platforms":["Windows","Android"],"repo":"codex-max-private","additionalRelease":"codex-max-v7.0.1","iconSource":"codex-max/resource/app_icon/codexmax-app-icon-1024.png","host":"codexmax.nkbr.cc"},
+  {"id":"androiddesktop","name":"Android Desktop","description":"把桌面、文件与多窗口带到 Android。","platforms":["Android","Windows"],"repo":"Androiddesktop","iconSource":"Androiddesktop/app/src/main/res/drawable-nodpi/androiddesktop_app_icon.webp"},
+  {"id":"flutterdesign","name":"FlutterDesign","description":"Flutter 组件、交互与自适应界面的设计工具集。","platforms":["Flutter","Windows"],"repo":"flutter-design","iconSource":"flutter-design/web/icons/Icon-512.png"},
+  {"id":"gamelauncher","name":"GameLauncher","description":"整理游戏，选择引擎，开始游玩。","platforms":["Windows","Android"],"repo":"gamelauncher","iconSource":"gamelaucher/project/gamelaucher_flutter/assets/icons/app_icon.png","host":"gamelauncher.nkbr.cc"},
+  {"id":"flacgn","name":"FlACGN","description":"动漫浏览、收藏与下载，连接你的 ACG 日常。","platforms":["Windows","Android"],"repo":"flacgn","iconSource":"flacgn/resource/branding/flanime_icon_source.png"},
+  {"id":"flclashplus","name":"FlClashPlus","description":"跨平台代理管理，轻松切换配置与连接。","platforms":["Windows","Android"],"repo":"flclashplus","iconSource":"flclashplus/assets/images/icon.png","host":"flclashplus.nkbr.cc"},
+  {"id":"ainavol","name":"Ainavol","description":"融合 AI、网页与文件的个人工作空间。","platforms":["Windows"],"repo":"Ainavol","iconSource":"Ainavol/ui/app/assets/ainavol-app-icon-512.png"},
+  {"id":"lanzouplus","name":"LanzouPlus","description":"轻量的规则库、资源搜索与下载工具。","platforms":["Android"],"repo":"lanzouplus","iconSource":"lanzouplus/project/lanzou-native-java/app/src/main/res/mipmap-nodpi/app_icon.webp","host":"lanzouplus.nkbr.cc","assetPattern":"^LanzouPlus\\.apk$"},
+  {"id":"androidsimulator","name":"Android Simulator","description":"让 Android 应用在 Windows 中独立成窗。","platforms":["Windows"],"repo":"AndroidSimulator","iconSource":"Android Simulator/project/android-simulator/src/AndroidSimulator.App/Assets/Square150x150Logo.scale-200.png","host":"androidsimulator.nkbr.cc"},
+  {"id":"nekocommunity","name":"NekoCommunity","description":"社区交流、文件分享与云盘管理。","platforms":["Windows","Android","Web"],"repo":"neko-community","iconSource":"neko community/project/community-flutter/apps/community_user/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"},
+  {"id":"skillcreator","name":"SkillCreator","description":"创建、编辑与整理 Agent 技能。","platforms":["Windows"],"repo":"skill-agentmd-creator","iconSource":"skill creator/project/skillcreator-flutter/windows/runner/resources/app_icon.ico","host":"skillcreator.nkbr.cc"},
+  {"id":"flpiliplus","name":"FlPiliPlus","description":"视频浏览、播放与收藏的跨端客户端。","platforms":["Windows","Android"],"repo":"flpiliplus","iconSource":"flpiliplus/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"},
+  {"id":"kacha","name":"Kacha","description":"快捷截图、文字识别与画面批注。","platforms":["Windows"],"repo":"kacha","iconSource":"kacha/ScreenshotCat/Assets/AppIcon.ico","host":"kacha.nkbr.cc"}
+]

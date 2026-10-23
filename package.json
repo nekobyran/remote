@@ -1,0 +1,6 @@
+{
+  "name": "nkbr-projects",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node command/build.mjs", "refresh": "node command/releases.mjs", "icons": "node command/sync-icons.mjs", "test": "node --test test/*.test.mjs" }
+}

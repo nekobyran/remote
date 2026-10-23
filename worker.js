@@ -1,3 +1,7 @@
+import projects from './projects.json' with { type: 'json' };
+
+const hosts = new Map(projects.filter(project => project.host).map(project => [project.host, project.id]));
+const releasePaths = new Set(['/', '/index.html', '/release', '/release/']);
 const HTML_CACHE = 'public, max-age=0, must-revalidate, no-transform';
 const STATIC_CACHE = 'public, max-age=0, must-revalidate';
 
@@ -17,15 +21,23 @@ function securityHeaders(contentType) {
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+    const project = hosts.get(url.hostname);
+    // Exact presentation routes leave the existing API/download workers intact.
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       const headers = securityHeaders('text/plain');
       headers.set('Allow', 'GET, HEAD');
       return new Response('Method Not Allowed', { status: 405, headers });
     }
-    const assetResponse = await env.ASSETS.fetch(request);
+    if (!project && /^\/flanime(?:\/|\/index\.html)?$/.test(url.pathname)) {
+      return Response.redirect('https://nkbr.cc/projects/flacgn/', 308);
+    }
+    if (project && releasePaths.has(url.pathname)) url.pathname = `/projects/${project}/`;
+    const assetResponse = await env.ASSETS.fetch(new Request(url, request));
     const contentType = assetResponse.headers.get('Content-Type') || 'application/octet-stream';
     const headers = new Headers(assetResponse.headers);
     for (const [key, value] of securityHeaders(contentType)) headers.set(key, value);
+    headers.set('X-NKBR-Design', 'mint-2026');
     return new Response(request.method === 'HEAD' ? null : assetResponse.body, {
       status: assetResponse.status,
       statusText: assetResponse.statusText,

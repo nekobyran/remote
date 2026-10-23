@@ -1,180 +1,53 @@
+#requires -Version 7.0
 [CmdletBinding()]
 param(
-    [ValidateSet('Stage', 'Validate', 'DryRun', 'Deploy', 'Status')]
-    [string]$Action = 'Validate'
+  [ValidateSet('Stage','Validate','DryRun','Deploy','Status')][string]$Action='Validate',
+  [string]$WranglerPath
 )
-
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-[Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
-
-$root = $PSScriptRoot
-$stage = Join-Path $root '.stage'
-$config = Join-Path $root 'wrangler.jsonc'
-$siteUrl = 'https://nkbr.cc/'
-$publicFiles = @(
-    'index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '404.html',
-    'home.json', 'gal.json', '7f29c60b70c948c298d130c4ccf1b8c8.txt', 'assets/sponsor.jpg', 'flanime/index.html',
-    'android-simulator-icon.webp', 'codexmax-icon.png', 'easy-dream-skin-icon.png', 'flclash-plusplus-icon.png', 'flanime-icon.svg', 'game-launcher-icon.webp',
-    'kacha-icon.webp', 'lanzou-plus-public-icon.svg', 'lanzouyou-icon.svg', 'nekostar-devtools-icon.webp',
-    'nekostar-icon.webp', 'skill-creator-icon.webp'
-)
-$projectUrls = @(
-    'https://blog.nkbr.cc/', 'https://nekostar.nkbr.cc/', 'https://nekostardevtools.nkbr.cc/',
-    'https://androidsimulator.nkbr.cc/', 'https://skillcreator.nkbr.cc/', 'https://gamelauncher.nkbr.cc/',
-    'https://lanzouplus.nkbr.cc/', 'https://lanzouyou.nkbr.cc/', 'https://flclashplus.nkbr.cc/',
-    'https://codexmax.nkbr.cc/', 'https://kacha.nkbr.cc/',
-    'https://easydreamskin.nkbr.cc/', 'https://nkbr.cc/flanime/'
-)
-
-function Invoke-Stage {
-    $expected = [IO.Path]::GetFullPath((Join-Path $root '.stage'))
-    if ([IO.Path]::GetFullPath($stage) -ne $expected) { throw 'Unexpected stage path.' }
-    if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
-    foreach ($relative in $publicFiles) {
-        $source = Join-Path $root $relative
-        if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Missing public file: $relative" }
-        $target = Join-Path $stage $relative
-        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
-        Copy-Item -LiteralPath $source -Destination $target -Force
-    }
-    Write-Output "stage=pass;files=$($publicFiles.Count);path=$stage"
+$ErrorActionPreference='Stop'
+$root=$PSScriptRoot
+$env:WRANGLER_SEND_METRICS='false'
+$env:XDG_CONFIG_HOME=Join-Path $env:APPDATA 'xdg.config'
+if(-not $WranglerPath){
+  $sdk=Join-Path ([IO.Path]::GetPathRoot($root)) 'vibecoding/sdk'
+  $WranglerPath=Join-Path $sdk 'wrangler/4.149.0/node_modules/wrangler/bin/wrangler.js'
 }
-
-function Invoke-Validate {
-    $html = Get-Content -Raw -LiteralPath (Join-Path $root 'index.html') -Encoding utf8
-    $css = Get-Content -Raw -LiteralPath (Join-Path $root 'styles.css') -Encoding utf8
-    $js = Get-Content -Raw -LiteralPath (Join-Path $root 'script.js') -Encoding utf8
-    $worker = Get-Content -Raw -LiteralPath (Join-Path $root 'worker.js') -Encoding utf8
-    $wrangler = Get-Content -Raw -LiteralPath $config -Encoding utf8
-    foreach ($url in $projectUrls) {
-        if (-not $html.Contains($url, [StringComparison]::Ordinal)) { throw "Missing project URL: $url" }
-    }
-    foreach ($marker in @('motion-toggle', 'data-reveal', 'assets/sponsor.jpg', '13 个独立入口', 'project-meta', 'ROOT REPOSITORY', 'LICENSE NOT DECLARED', 'https://github.com/nekobyran/kacha', 'https://github.com/nekobyran/lanzouplus', 'https://codexmax.nkbr.cc/', 'https://easydreamskin.nkbr.cc/', 'https://github.com/nekobyran/easy-dream-skin', 'https://nkbr.cc/flanime/', 'flanime-icon.svg', 'PUBLIC RELEASE · MIT')) {
-        if (-not $html.Contains($marker, [StringComparison]::Ordinal)) { throw "Missing portal marker: $marker" }
-    }
-    foreach ($forbidden in @('PRIVATE PREVIEW', 'TEST BUILD', 'VERIFICATION STATUS', 'github.com/nekobyran/ScreenshotCat', 'codexmax.nkbr.cc/release/', 'lanzoumax')) {
-        if ($html.Contains($forbidden, [StringComparison]::OrdinalIgnoreCase)) { throw "Portal contains forbidden internal or stale marker: $forbidden" }
-    }
-    foreach ($marker in @('prefers-reduced-motion', ':focus-visible', '@keyframes orbit')) {
-        if (-not $css.Contains($marker, [StringComparison]::Ordinal)) { throw "Missing CSS safeguard: $marker" }
-    }
-    foreach ($marker in @('navigator.connection', 'saveData', 'visibilitychange', 'aria-pressed', 'IntersectionObserver', 'is-motion-off', 'reveal-enhanced')) {
-        if (-not $js.Contains($marker, [StringComparison]::Ordinal)) { throw "Missing runtime safeguard: $marker" }
-    }
-    if ($js.Contains("body.classList.toggle('motion-off'", [StringComparison]::Ordinal)) {
-        throw 'Motion state must not reuse the motion-off icon class on body.'
-    }
-    if ($css -match '(?<!reveal-enhanced )\[data-reveal\]\s*\{[^}]*opacity\s*:\s*0') {
-        throw 'Reveal content must remain visible when JavaScript or IntersectionObserver is unavailable.'
-    }
-    if ($worker -match 'raw\.githubusercontent\.com|unsafe-inline|unsafe-eval') { throw 'Worker contains a forbidden remote origin or unsafe CSP.' }
-    foreach ($marker in @('Strict-Transport-Security', 'X-Content-Type-Options', 'no-transform', 'GET', 'HEAD', 'env.ASSETS.fetch')) {
-        if (-not $worker.Contains($marker, [StringComparison]::Ordinal)) { throw "Worker missing: $marker" }
-    }
-    if ($wrangler -notmatch '"pattern"\s*:\s*"nkbr\.cc/\*"' -or
-        $wrangler -notmatch '"zone_name"\s*:\s*"nkbr\.cc"' -or
-        $wrangler -notmatch '"directory"\s*:\s*"\.\/\.stage"') {
-        throw 'Wrangler static assets zone-route configuration is invalid.'
-    }
-    foreach ($relative in $publicFiles) {
-        if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Leaf)) { throw "Missing public file: $relative" }
-    }
-    $easyDreamSkinIcon = Join-Path $root 'easy-dream-skin-icon.png'
-    $easyDreamSkinIconHash = (Get-FileHash -LiteralPath $easyDreamSkinIcon -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($easyDreamSkinIconHash -ne '33cd74daeeadb8bfcbc14951cfa34b076316589ca4dc27712c89175c2ff17fcd') {
-        throw "Easy Dream Skin icon hash mismatch: $easyDreamSkinIconHash"
-    }
-    $nodeCommand = Get-Command node -ErrorAction SilentlyContinue
-    $node = if ($nodeCommand) { $nodeCommand.Source } else {
-        @('C:\Program Files\nodejs\node.exe', 'D:\vibecoding\sdk\nodejs\node.exe', 'H:\vibecoding\sdk\nodejs\node.exe') |
-            Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } |
-            Select-Object -First 1
-    }
-    if (-not $node) { throw 'node.exe was not found.' }
-    $scriptCheck = Start-Process -FilePath $node -ArgumentList @('--check', (Join-Path $root 'script.js')) -WorkingDirectory $root -WindowStyle Hidden -Wait -PassThru
-    if ($scriptCheck.ExitCode -ne 0) { throw 'script.js syntax check failed.' }
-    $workerCheck = Start-Process -FilePath $node -ArgumentList @('--check', (Join-Path $root 'worker.js')) -WorkingDirectory $root -WindowStyle Hidden -Wait -PassThru
-    if ($workerCheck.ExitCode -ne 0) { throw 'worker.js syntax check failed.' }
-    Write-Output 'validation=pass;projects=13;csp=strict;motion=adaptive;assets=local'
+function Invoke-Node([string[]]$Arguments){
+  & node @Arguments
+  if($LASTEXITCODE -ne 0){throw "Node failed: $($Arguments[0])"}
 }
-
-function Invoke-Wrangler {
-    param([Parameter(Mandatory)][string[]]$Arguments)
-    $drive = [IO.Path]::GetPathRoot($root)
-    $cache = Join-Path $drive 'vibecoding\sdk\cache\npm'
-    New-Item -ItemType Directory -Force -Path $cache | Out-Null
-    $nodeCommand = Get-Command node -ErrorAction SilentlyContinue
-    $node = if ($nodeCommand) { $nodeCommand.Source } else {
-        @('C:\Program Files\nodejs\node.exe', 'D:\vibecoding\sdk\nodejs\node.exe', 'H:\vibecoding\sdk\nodejs\node.exe') |
-            Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } |
-            Select-Object -First 1
-    }
-    if (-not $node) { throw 'node.exe was not found.' }
-    $wrangler = Get-ChildItem -Path (Join-Path $cache '_npx\*\node_modules\wrangler\bin\wrangler.js') -File -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTimeUtc -Descending |
-        Select-Object -First 1
-    if (-not $wrangler) { throw 'Wrangler 4 CLI is missing from the D: npm cache. Run npx --yes wrangler@4 --version once.' }
-    $startInfo = [Diagnostics.ProcessStartInfo]::new()
-    $startInfo.FileName = $node
-    $startInfo.WorkingDirectory = $root
-    $startInfo.UseShellExecute = $false
-    $startInfo.CreateNoWindow = $true
-    $startInfo.RedirectStandardOutput = $true
-    $startInfo.RedirectStandardError = $true
-    $startInfo.Environment['npm_config_cache'] = $cache
-    $startInfo.Environment['NO_UPDATE_NOTIFIER'] = '1'
-    [void]$startInfo.ArgumentList.Add($wrangler.FullName)
-    foreach ($argument in $Arguments) { [void]$startInfo.ArgumentList.Add($argument) }
-    $process = [Diagnostics.Process]::new()
-    $process.StartInfo = $startInfo
-    if (-not $process.Start()) { throw 'Unable to start Wrangler.' }
-    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
-    $stderrTask = $process.StandardError.ReadToEndAsync()
-    $process.WaitForExit()
-    [void]$stdoutTask.GetAwaiter().GetResult()
-    [void]$stderrTask.GetAwaiter().GetResult()
-    $exitCode = $process.ExitCode
-    $process.Dispose()
-    if ($exitCode -ne 0) { throw "Wrangler stage failed: $($Arguments[0])" }
+function Build-Site {
+  Invoke-Node @('command/sync-icons.mjs')
+  Invoke-Node @('command/build.mjs')
 }
-
-function Invoke-Status {
-    $response = $null
-    foreach ($attempt in 1..5) {
-        $statusUri = '{0}?status={1}-{2}' -f $siteUrl, [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds(), $attempt
-        $candidate = Invoke-WebRequest -Uri $statusUri -Headers @{ 'Cache-Control' = 'no-cache' } -TimeoutSec 30 -MaximumRedirection 4 -UseBasicParsing
-        if ($candidate.StatusCode -eq 200 -and ([string]$candidate.Content).Contains('13 个独立入口')) {
-            $response = $candidate
-            break
-        }
-        Start-Sleep -Seconds 1
-    }
-    if ($null -eq $response) { throw 'Production portal marker is missing after five cache-busted checks.' }
-    foreach ($header in @('Content-Security-Policy', 'Strict-Transport-Security', 'X-Content-Type-Options')) {
-        if (-not $response.Headers[$header]) { throw "Missing production header: $header" }
-    }
-    if ([string]$response.Headers['Cache-Control'] -notmatch 'no-transform') { throw 'Production HTML is missing no-transform.' }
-    Write-Output "status=pass;url=$siteUrl;http=200;projects=13;security=pass"
+function Test-Site { Invoke-Node @('--test','test/site.test.mjs') }
+function Get-SiteStatus {
+  $projects=Get-Content (Join-Path $root 'projects.json') -Raw | ConvertFrom-Json
+  $urls=@('https://nkbr.cc/')+@($projects | ForEach-Object {"https://nkbr.cc/projects/$($_.id)/"})+@($projects | Where-Object host | ForEach-Object {"https://$($_.host)/"})
+  foreach($url in $urls){
+    $response=Invoke-WebRequest -Uri $url -Headers @{'Cache-Control'='no-cache'} -TimeoutSec 30
+    if($response.StatusCode -ne 200 -or $response.Headers['X-NKBR-Design'] -ne 'mint-2026' -or $response.Content -notmatch 'data-design="mint-2026"'){throw "Site check failed: $url"}
+    Write-Output "PASS $url"
+  }
 }
-
-switch ($Action) {
-    'Stage' { Invoke-Stage }
-    'Validate' { Invoke-Validate }
+Push-Location $root
+try {
+  switch($Action){
+    'Stage' {Build-Site}
+    'Validate' {Build-Site; Test-Site}
     'DryRun' {
-        Invoke-Stage
-        Invoke-Validate
-        Invoke-Wrangler @('whoami')
-        Invoke-Wrangler @('deploy', '--config', $config, '--dry-run')
-        Write-Output 'dry_run=pass'
+      Build-Site; Test-Site
+      $auth=& node $WranglerPath whoami 2>&1
+      if($LASTEXITCODE -ne 0){throw 'Cloudflare authentication is unavailable.'}
+      Invoke-Node @($WranglerPath,'deploy','--config','wrangler.jsonc','--dry-run')
     }
     'Deploy' {
-        Invoke-Stage
-        Invoke-Validate
-        Invoke-Wrangler @('whoami')
-        Invoke-Wrangler @('deploy', '--config', $config)
-        Invoke-Status
-        Write-Output 'deploy=pass'
+      Build-Site; Test-Site
+      $auth=& node $WranglerPath whoami 2>&1
+      if($LASTEXITCODE -ne 0){throw 'Cloudflare authentication is unavailable.'}
+      Invoke-Node @($WranglerPath,'deploy','--config','wrangler.jsonc')
+      Get-SiteStatus
     }
-    'Status' { Invoke-Status }
-}
+    'Status' {Get-SiteStatus}
+  }
+}finally{Pop-Location}

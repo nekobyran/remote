@@ -1,0 +1,80 @@
+[
+  {
+    "project": "codexmax",
+    "source": "codex-max/resource/app_icon/codexmax-app-icon-1024.png",
+    "bytes": 1261852,
+    "modified": "2026-08-15T14:25:18.588Z"
+  },
+  {
+    "project": "androiddesktop",
+    "source": "Androiddesktop/app/src/main/res/drawable-nodpi/androiddesktop_app_icon.webp",
+    "bytes": 58404,
+    "modified": "2026-10-07T16:30:11.331Z"
+  },
+  {
+    "project": "flutterdesign",
+    "source": "flutter-design/web/icons/Icon-512.png",
+    "bytes": 8252,
+    "modified": "2026-06-24T08:21:12.000Z"
+  },
+  {
+    "project": "gamelauncher",
+    "source": "gamelaucher/project/gamelaucher_flutter/assets/icons/app_icon.png",
+    "bytes": 10545,
+    "modified": "2026-06-29T11:35:59.765Z"
+  },
+  {
+    "project": "flacgn",
+    "source": "flacgn/resource/branding/flanime_icon_source.png",
+    "bytes": 1945657,
+    "modified": "2026-10-17T12:35:12.292Z"
+  },
+  {
+    "project": "flclashplus",
+    "source": "flclashplus/assets/images/icon.png",
+    "bytes": 153455,
+    "modified": "2026-06-12T16:16:50.393Z"
+  },
+  {
+    "project": "ainavol",
+    "source": "Ainavol/ui/app/assets/ainavol-app-icon-512.png",
+    "bytes": 215668,
+    "modified": "2026-10-03T10:38:33.728Z"
+  },
+  {
+    "project": "lanzouplus",
+    "source": "lanzouplus/project/lanzou-native-java/app/src/main/res/mipmap-nodpi/app_icon.webp",
+    "bytes": 5982,
+    "modified": "2026-10-17T12:00:44.263Z"
+  },
+  {
+    "project": "androidsimulator",
+    "source": "Android Simulator/project/android-simulator/src/AndroidSimulator.App/Assets/Square150x150Logo.scale-200.png",
+    "bytes": 6357,
+    "modified": "2026-06-14T15:44:00.706Z"
+  },
+  {
+    "project": "nekocommunity",
+    "source": "neko community/project/community-flutter/apps/community_user/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+    "bytes": 1443,
+    "modified": "2026-08-30T19:59:06.095Z"
+  },
+  {
+    "project": "skillcreator",
+    "source": "skill creator/project/skillcreator-flutter/windows/runner/resources/app_icon.ico",
+    "bytes": 33772,
+    "modified": "2026-09-24T13:17:10.458Z"
+  },
+  {
+    "project": "flpiliplus",
+    "source": "flpiliplus/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+    "bytes": 30627,
+    "modified": "2026-07-10T12:30:28.729Z"
+  },
+  {
+    "project": "kacha",
+    "source": "kacha/ScreenshotCat/Assets/AppIcon.ico",
+    "bytes": 370070,
+    "modified": "2026-06-29T10:26:41.164Z"
+  }
+]

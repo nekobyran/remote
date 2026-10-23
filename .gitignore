@@ -1,2 +1,8 @@
 .stage/
 .wrangler/
+verification/
+output/
+.playwright-cli/
+release/
+.codexmax-project-init.json
+main/
