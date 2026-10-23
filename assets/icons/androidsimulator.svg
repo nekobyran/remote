@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Android Simulator 标志</title>
+  <rect width="64" height="64" rx="14" fill="#ff6600"/>
+  <path fill="#0a0a08" d="M12 12h40v40H12z"/>
+  <path fill="#ff6600" d="M21 19h9l8 13-8 13h-9l8-13-8-13Zm18 0h5v26h-5z"/>
+  <path fill="#0a0a08" d="M0 22h12v20H0zm52 0h12v20H52z"/>
+  <path stroke="#ff984f" stroke-width="2" d="M16 16h8M16 16v8m32-8h-8m8 0v8M16 48h8m-8 0v-8m32 8h-8m8 0v-8"/>
+</svg>

@@ -49,21 +49,21 @@
   },
   {
     "project": "androidsimulator",
-    "source": "Android Simulator/project/android-simulator/src/AndroidSimulator.App/Assets/Square150x150Logo.scale-200.png",
-    "bytes": 6357,
-    "modified": "2026-06-14T15:44:00.706Z"
+    "source": "Android Simulator/project/android-simulator-website/public/assets/android-simulator-mark.svg",
+    "bytes": 503,
+    "modified": "2026-07-28T03:05:59.274Z"
   },
   {
     "project": "nekocommunity",
-    "source": "neko community/project/community-flutter/apps/community_user/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
-    "bytes": 1443,
-    "modified": "2026-08-30T19:59:06.095Z"
+    "source": "neko community/resource/remote_access/favicon.svg",
+    "bytes": 374,
+    "modified": "2026-10-11T15:48:54.336Z"
   },
   {
     "project": "skillcreator",
-    "source": "skill creator/project/skillcreator-flutter/windows/runner/resources/app_icon.ico",
-    "bytes": 33772,
-    "modified": "2026-09-24T13:17:10.458Z"
+    "source": "skill creator/project/skillcreator-site-static/favicon.svg",
+    "bytes": 374,
+    "modified": "2026-09-24T13:17:10.477Z"
   },
   {
     "project": "flpiliplus",
@@ -73,8 +73,8 @@
   },
   {
     "project": "kacha",
-    "source": "kacha/ScreenshotCat/Assets/AppIcon.ico",
-    "bytes": 370070,
-    "modified": "2026-06-29T10:26:41.164Z"
+    "source": "kacha/website/assets/app-icon.webp",
+    "bytes": 3080,
+    "modified": "2026-07-19T11:35:29.799Z"
   }
 ]
