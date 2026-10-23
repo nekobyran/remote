@@ -17,7 +17,7 @@ function header(home) {
 
 function support() {
   return `<section id="support" class="support shell" aria-labelledby="support-title" data-reveal>
-    <div class="support-copy"><p class="eyebrow">THANK YOU</p><h2 id="support-title">让喜欢的项目，<br>继续生长。</h2><p>谢谢你的支持。</p></div>
+    <div class="support-copy"><h2 id="support-title">赞助支持</h2></div>
     <a class="sponsor-image" href="/_nkbr/sponsor.jpg" target="_blank" rel="noopener" aria-label="查看完整赞助二维码"><img src="/_nkbr/sponsor.jpg" width="641" height="638" alt="赞助二维码" loading="lazy" decoding="async"></a>
   </section>`;
 }
@@ -37,10 +37,10 @@ function page({ title, description, canonical, content, home = false }) {
 
 export function homePage(projects) {
   const content = `<section class="hero shell" aria-labelledby="hero-title">
-    <div data-reveal><p class="eyebrow"><span class="status-dot"></span>NKBR PROJECTS</p><h1 id="hero-title">把灵感，<br><em>做成日常。</em></h1><p class="hero-description">一些好用的工具，一些有趣的尝试。</p></div>
-    <a class="hero-index" href="#projects" data-reveal><span class="index-number">${String(projects.length).padStart(2, '0')}</span><span>个项目，慢慢生长 ${arrow}</span></a>
+    <div data-reveal><h1 id="hero-title">项目集</h1></div>
+    <a class="hero-index" href="#projects" data-reveal><span class="index-number">${String(projects.length).padStart(2, '0')}</span><span>个项目 ${arrow}</span></a>
   </section>
-  <section id="projects" class="projects shell" aria-labelledby="projects-title"><div class="section-heading" data-reveal><h2 id="projects-title">项目集</h2><span>TOOLS & CREATIONS</span></div>
+  <section id="projects" class="projects shell" aria-label="全部项目">
   <div class="project-grid">${projects.map((project, index) => `<article class="project-card" data-project="${project.id}" data-reveal>
     <a class="project-link" href="${projectPath(project)}"><div class="card-top">${icon(project)}<span class="card-number">${String(index + 1).padStart(2, '0')}</span></div>
     <h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.description)}</p><div class="card-bottom">${tags(project.platforms)}<span class="card-arrow">${arrow}</span></div></a>
@@ -66,11 +66,11 @@ export function assetLabel(name) {
 
 export function releasePage(project, release) {
   const assets = release.assets;
-  const content = `<section class="release-hero shell" aria-labelledby="release-title"><a class="back-link" href="https://nkbr.cc/#projects">${arrow} 全部项目</a>
-    <div class="release-heading" data-reveal>${icon(project, 'release-icon')}<div><p class="eyebrow">NKBR / ${String(project.index + 1).padStart(2, '0')}</p><h1 id="release-title">${escapeHtml(project.name)}</h1><p>${escapeHtml(project.description)}</p>${tags(project.platforms)}</div></div>
+  const content = `<section class="release-hero shell" aria-labelledby="release-title">
+    <div class="release-heading" data-reveal>${icon(project, 'release-icon')}<div><h1 id="release-title">${escapeHtml(project.name)}</h1><p>${escapeHtml(project.description)}</p>${tags(project.platforms)}</div></div>
     <div class="release-actions" data-reveal><a class="button button-primary" href="${assets.length ? '#downloads' : repoUrl(project)}">${assets.length ? `选择下载 ${download}` : `项目源码 ${github}`}</a><a class="text-link" href="${release.url}">版本记录 ${arrow}</a></div>
   </section>
-  <section id="downloads" class="downloads shell" aria-labelledby="downloads-title"><div class="section-heading" data-reveal><div><p class="eyebrow">RELEASE</p><h2 id="downloads-title">${assets.length ? '获取应用' : '项目源码'}</h2></div>${release.version ? `<div class="release-version"><strong>${escapeHtml(release.version)}</strong><span>${release.preview ? '预览版 · ' : ''}${release.date}</span></div>` : ''}</div>
+  <section id="downloads" class="downloads shell" aria-labelledby="downloads-title"><div class="section-heading" data-reveal><div><h2 id="downloads-title">${assets.length ? '获取应用' : '项目源码'}</h2></div>${release.version ? `<div class="release-version"><strong>${escapeHtml(release.version)}</strong><span>${release.preview ? '预览版 · ' : ''}${release.date}</span></div>` : ''}</div>
     <div class="download-grid">${assets.length ? assets.map(asset => `<article class="download-card" data-reveal><p class="download-platform">${escapeHtml(assetLabel(asset.name))}</p><h3>${escapeHtml(asset.name)}</h3><p class="file-size">${(asset.size / 1024 / 1024).toFixed(1)} MB</p><a class="button button-primary" href="${escapeHtml(asset.url)}" aria-label="下载 ${escapeHtml(asset.name)}">GitHub 下载 ${download}</a></article>`).join('\n') : `<article class="download-card" data-reveal><p class="download-platform">GitHub</p><h3>${escapeHtml(project.name)}</h3><p class="file-size">尚未发布安装包</p><a class="button button-primary" href="${repoUrl(project)}">查看源码 ${arrow}</a></article>`}</div>
     ${assets.length ? `<a class="source-link" href="${repoUrl(project)}">${github} 项目源码</a>` : ''}
   </section>`;

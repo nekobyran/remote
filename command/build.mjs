@@ -9,8 +9,7 @@ const projects = JSON.parse(await readFile(join(root, 'projects.json'), 'utf8'))
 const releases = JSON.parse(await readFile(join(root, 'data/releases.json'), 'utf8'));
 // Rewrite generated files in place so Wrangler's Windows watcher can stay open.
 await mkdir(join(stage, '_nkbr/icons'), { recursive: true });
-for (const [index, project] of projects.entries()) {
-  project.index = index;
+for (const project of projects) {
   project.icon = `${project.id}${extname(project.iconSource)}`;
   const source = join(root, 'assets/icons', project.icon);
   await copyFile(source, join(stage, '_nkbr/icons', project.icon));
