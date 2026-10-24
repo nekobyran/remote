@@ -41,9 +41,9 @@ test('icon snapshots and public assets are identical bytes', async () => {
 });
 
 test('orientation and reduced-motion contracts exist without hidden no-JS content', async () => {
-  const css = await read('styles.css');
+  const css = (await read('styles.css')).replace(/\s+/g, '');
   assert.match(css, /grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
-  assert.match(css, /@media\(orientation:portrait\)\{\.project-grid,\.download-grid\{grid-template-columns:minmax\(0,1fr\)/);
+  assert.match(css, /@media\(orientation:portrait\)\{[\s\S]*?\.project-grid,\.download-grid\{grid-template-columns:minmax\(0,1fr\)/);
   assert.match(css, /prefers-reduced-motion:reduce/);
   assert.match(css, /:focus-visible/);
   assert.doesNotMatch(css, /\[data-reveal\][^{]*\{[^}]*opacity:0/);
