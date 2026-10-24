@@ -79,9 +79,11 @@ function page({ title, description, canonical, content, home = false, project = 
   <link rel="stylesheet" href="/_nkbr/styles.css">
   <link rel="expect" href="#page-end" blocking="render">
   <script src="/_nkbr/script.js"></script>
+  <script type="module" src="/_nkbr/forest.js"></script>
   <title>${escapeHtml(title)}</title>
 </head>
 <body data-design="mint-2026">
+  <div class="forest-world" aria-hidden="true"><canvas class="forest-canvas"></canvas><div class="forest-veil"></div></div>
   <a class="skip-link" href="#main">跳到内容</a>
   ${header(home, project)}
   <main id="main" tabindex="-1">
@@ -93,6 +95,7 @@ function page({ title, description, canonical, content, home = false, project = 
     <a href="${escapeHtml(footerHref)}"${project ? ' data-collection-return' : ''}>项目集 ${arrow}</a>
     <a class="to-top" href="#main">回到顶部 ${arrow}</a>
   </footer>
+  <button class="forest-toggle" type="button" data-forest-toggle aria-pressed="false" aria-label="暂停森林动态" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path class="forest-pause-icon" d="M7 5v10m6-10v10"/><path class="forest-play-icon" d="m7 4 9 6-9 6z"/></svg><span>暂停背景</span></button>
 </body>
 </html>\n`;
 }

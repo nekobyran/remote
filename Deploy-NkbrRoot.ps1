@@ -17,7 +17,6 @@ function Invoke-Node([string[]]$Arguments){
   if($LASTEXITCODE -ne 0){throw "Node failed: $($Arguments[0])"}
 }
 function Build-Site {
-  Invoke-Node @('command/sync-icons.mjs')
   Invoke-Node @('command/build.mjs')
 }
 function Test-Site { Invoke-Node @('--test','test/site.test.mjs') }

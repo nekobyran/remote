@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homePage, releasePage, notFoundPage } from '../src/templates.mjs';
+import { build } from 'esbuild';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const stage = join(root, '.stage');
@@ -9,6 +10,10 @@ const projects = JSON.parse(await readFile(join(root, 'projects.json'), 'utf8'))
 const releases = JSON.parse(await readFile(join(root, 'data/releases.json'), 'utf8'));
 // Rewrite generated files in place so Wrangler's Windows watcher can stay open.
 await mkdir(join(stage, '_nkbr/icons'), { recursive: true });
+await build({ entryPoints:[join(root,'src/forest-scene.js')], outfile:join(stage,'_nkbr/forest.js'), bundle:true, format:'esm', minify:true, target:'es2022', legalComments:'linked' });
+await copyFile(join(root,'node_modules/three/LICENSE'),join(stage,'_nkbr/THREE-LICENSE.txt'));
+await copyFile(join(root,'assets/forest-still.svg'),join(stage,'_nkbr/forest-still.svg'));
+await copyFile(join(root,'assets/forest-branch.svg'),join(stage,'_nkbr/forest-branch.svg'));
 for (const project of projects) {
   project.icon = `${project.id}${extname(project.iconSource)}`;
   const source = join(root, 'assets/icons', project.icon);

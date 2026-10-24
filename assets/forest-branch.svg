@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200" fill="none">
+  <defs>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2=".7"><stop stop-color="#295f48"/><stop offset=".45" stop-color="#719a6c"/><stop offset=".54" stop-color="#acc48b"/><stop offset="1" stop-color="#547f58"/></linearGradient>
+    <linearGradient id="stem" x2=".4" y2="1"><stop stop-color="#91af79"/><stop offset="1" stop-color="#38684d"/></linearGradient>
+    <g id="l"><path d="M0 0C-58-7-117-55-103-144C-28-135 23-65 0 0Z" fill="url(#leaf)"/><path d="M0 0C-28-51-62-95-103-144M-16-31-62-33M-33-59-82-65M-51-88-94-97M-17-32-7-66M-34-61-31-99M-53-91-60-121" stroke="#d7e6b1" stroke-width=".8" opacity=".45"/><path d="M-1-2C-30-48-67-100-102-142" stroke="#f1f4cc" stroke-width="1.2" opacity=".3"/></g>
+  </defs>
+  <path d="M118 1200C188 1019 345 925 383 729C420 536 462 379 611 148" stroke="url(#stem)" stroke-width="5"/>
+  <path d="M202 1023Q124 930 59 852M278 929Q396 928 514 813M331 841Q245 745 175 651M373 751Q488 728 577 599M395 656Q320 541 274 476M421 554Q543 511 626 403M457 449Q402 353 381 296M504 340Q612 321 685 216M556 240Q525 143 529 91" stroke="url(#stem)" stroke-width="2.3"/>
+  <use href="#l" transform="translate(202 1023) rotate(-29) scale(1.25)"/>
+  <use href="#l" transform="translate(245 973) rotate(88) scale(1.43)"/>
+  <use href="#l" transform="translate(278 929) rotate(-25) scale(1.22)"/>
+  <use href="#l" transform="translate(306 878) rotate(92) scale(1.2)"/>
+  <use href="#l" transform="translate(331 841) rotate(-34) scale(1.2)"/>
+  <use href="#l" transform="translate(353 793) rotate(100) scale(1.16)"/>
+  <use href="#l" transform="translate(373 751) rotate(-28) scale(1.1)"/>
+  <use href="#l" transform="translate(386 701) rotate(101) scale(1.06)"/>
+  <use href="#l" transform="translate(395 656) rotate(-24) scale(1.03)"/>
+  <use href="#l" transform="translate(407 603) rotate(102) scale(.98)"/>
+  <use href="#l" transform="translate(421 554) rotate(-19) scale(.98)"/>
+  <use href="#l" transform="translate(439 501) rotate(108) scale(.88)"/>
+  <use href="#l" transform="translate(457 449) rotate(-9) scale(.88)"/>
+  <use href="#l" transform="translate(480 394) rotate(115) scale(.8)"/>
+  <use href="#l" transform="translate(504 340) rotate(-4) scale(.8)"/>
+  <use href="#l" transform="translate(528 292) rotate(117) scale(.7)"/>
+  <use href="#l" transform="translate(556 240) rotate(0) scale(.68)"/>
+  <use href="#l" transform="translate(583 193) rotate(121) scale(.6)"/>
+  <use href="#l" transform="translate(612 146) rotate(22) scale(.62)"/>
+</svg>

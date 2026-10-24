@@ -6,3 +6,4 @@ output/
 release/
 .codexmax-project-init.json
 main/
+node_modules/

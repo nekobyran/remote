@@ -7,6 +7,7 @@
 - `projects.json`：项目顺序、简介、发布域名和本地图标来源。
 - `data/releases.json`：从 GitHub 正式发布记录读取的版本和下载地址；预览版本明确标注。CodexMax 的 CLI 与桌面版分别发布，页面同时保留两者。私有仓库下载沿用 GitHub 访问权限。
 - `src/templates.mjs`：首页、下载页和 404 页的统一模板。
+- `src/forest-scene.js`：Three.js 玻璃植物动画、SVG 景深层和背景播放控制。
 - `styles.css`、`script.js`：薄荷纸面视觉、横屏三列／竖屏单列、卡片光影与连续项目转场。
 - `assets/icons/`：对应本地工程的原始图标快照；来源与修改时间见 `assets/icon-sources.json`。
 - `assets/sponsor.jpg`：保留的原赞助二维码。
@@ -14,9 +15,10 @@
 
 ## 构建与部署
 
-使用 Node.js 24、GitHub CLI 和 Wrangler 4。项目自身没有 npm 依赖。
+使用 Node.js 24、GitHub CLI 和 Wrangler 4。Three.js 0.186.1 由 esbuild 打包为同源模块；运行时不请求第三方脚本、模型、纹理或字体。
 
 ```powershell
+npm ci
 npm run refresh  # 使用已登录的 GitHub CLI 更新发布记录
 npm run icons    # 从同级工程导入当前本地图标
 npm run build    # 使用仓库内的图标与版本快照构建
@@ -25,6 +27,8 @@ pwsh -File ./Deploy-NkbrRoot.ps1 -Action DryRun
 pwsh -File ./Deploy-NkbrRoot.ps1 -Action Deploy
 pwsh -File ./Deploy-NkbrRoot.ps1 -Action Status
 ```
+
+部署使用仓库内的图标快照；更新本地图标时显式运行 `npm run icons`。
 
 部署脚本默认使用 D/H 盘 `vibecoding/sdk` 下的 Wrangler；可用 `-WranglerPath` 指定已安装的 CLI。构建只重建本工程 `.stage/`。
 
@@ -38,7 +42,15 @@ pwsh -File ./Deploy-NkbrRoot.ps1 -Action Status
 
 ## 动效参考
 
-本轮设计与代码由 ChatGPT Web 的 6 Pro 生成，经真实 Edge 浏览器验收后，再由同一个 Pro 调整标题转场时序。
+ChatGPT Web 的 6 Pro 参与设计、标题转场打磨与森林动画编排；界面集成与 Three.js 动画经过真实 Edge 浏览器验收。
+
+森林背景采用精细 SVG 植物剪影与分层景深。一组相连的玻璃叶片在 16 秒周期中依次展开、转动、卷曲和收拢，根部保持连接；顶点形变与表面法线同步计算，细叶脉随表面一起弯曲。局部焦散和柔和光幕衬托玻璃厚度。界面以中心较厚、边缘通透的薄荷玻璃保持文字可读。
+
+视觉研究参考 [Lusion](https://lusion.co/) 的动态雕塑构图、[Active Theory](https://activetheory.net/) 的沉浸式呈现、[Awwwards Three.js](https://www.awwwards.com/websites/three-js/) 和 [Recent Design](https://recent.design/) 的界面案例。页面使用原创 SVG 与曲面动画，不复制这些网站的品牌素材。
+
+真实透射材质复用 [three.js physical transmission](https://github.com/mrdoob/three.js/blob/r186/examples/webgl_materials_physical_transmission.html) 和 `RoomEnvironment` 的官方实现（MIT）。完整许可证随站点保存在 `/_nkbr/THREE-LICENSE.txt`。森林、玻璃叶片、叶脉与焦散均在本地生成。
+
+背景最高 30fps，桌面绘制像素限制约 130 万、手机约 50 万。后台与页面离开时停止渲染；可用右下角按钮暂停并记住偏好。系统减少动态效果时显示静态构图；无 JavaScript 或无 WebGL 2 时显示本地 SVG 森林。背景与项目下载、路由和原生转场独立。
 
 首页卡片与详情页共享纸面、图标和标题：打开时用 740ms 展开，返回时用 620ms 收拢。标题在运动轨迹交叉阶段隐藏，落位后显现；详情的简介、平台和下载操作随后分层入场。指针光影只随鼠标移动更新。
 
