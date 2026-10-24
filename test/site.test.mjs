@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { extname } from 'node:path';
 import worker from '../worker.js';
-import { assetLabel, escapeHtml } from '../src/templates.mjs';
+import { stories } from '../src/project-stories.mjs';
+import { scores } from '../src/story-scores.js';
+import { art } from '../src/story-art.mjs';
 
 const root = new URL('../', import.meta.url);
 const projects = JSON.parse(await readFile(new URL('projects.json', root), 'utf8'));
-const catalog = JSON.parse(await readFile(new URL('data/releases.json', root), 'utf8'));
 const read = path => readFile(new URL(path, root), 'utf8');
 const wanted = ['codexmax','androiddesktop','flutterdesign','gamelauncher','flacgn','flclashplus','ainavol','lanzouplus','androidsimulator','nekocommunity','skillcreator','flpiliplus','kacha'];
 
@@ -18,7 +19,7 @@ test('homepage contains exactly the thirteen requested projects in image order',
   assert.doesNotMatch(html, /NekoStar|LanzouYOU|Easy Dream Skin|NKBR Blog|LICENSE NOT DECLARED|PRIVATE RELEASE|边界说明|校验/);
 });
 
-test('all release pages share theme, local icon, original QR and concise download actions', async () => {
+test('all project pages retain theme and use repository CTAs with individual films', async () => {
   for (const project of projects) {
     const html = await read(`.stage/projects/${project.id}/index.html`);
     assert.match(html, /data-design="mint-2026"/);
@@ -27,7 +28,11 @@ test('all release pages share theme, local icon, original QR and concise downloa
     assert.ok(html.includes(`/_nkbr/icons/${project.id}${extname(project.iconSource)}`));
     assert.ok(html.includes('/_nkbr/sponsor.jpg'));
     assert.doesNotMatch(html, /SHA256|SHA-256|checksum|PRIVATE RELEASE|边界说明|免责声明/);
-    for (const asset of catalog[project.id].assets) assert.ok(html.includes(escapeHtml(asset.url)));
+    assert.match(html, /id="story"/);
+    assert.ok(html.includes(`href="https://github.com/nekobyran/${project.repo}"`));
+    assert.ok(html.includes(`data-film="${project.id}"`));
+    assert.doesNotMatch(html, /id="downloads"|download-card|选择下载|GitHub 下载|尚未发布安装包|releases\/download\//);
+    assert.ok(html.includes('/_nkbr/stories.js'));
   }
   assert.equal((await readdir(new URL('.stage/projects/', root))).length, 13);
   assert.deepEqual(await readFile(new URL('.stage/_nkbr/sponsor.jpg', root)), await readFile(new URL('assets/sponsor.jpg', root)));
@@ -43,7 +48,7 @@ test('icon snapshots and public assets are identical bytes', async () => {
 test('orientation and reduced-motion contracts exist without hidden no-JS content', async () => {
   const css = (await read('styles.css')).replace(/\s+/g, '');
   assert.match(css, /grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
-  assert.match(css, /@media\(orientation:portrait\)\{[\s\S]*?\.project-grid,\.download-grid\{grid-template-columns:minmax\(0,1fr\)/);
+  assert.match(css, /@media\(orientation:portrait\)\{[\s\S]*?\.project-grid\{grid-template-columns:minmax\(0,1fr\)/);
   assert.match(css, /prefers-reduced-motion:reduce/);
   assert.match(css, /:focus-visible/);
   assert.doesNotMatch(css, /\[data-reveal\][^{]*\{[^}]*opacity:0/);
@@ -86,9 +91,17 @@ test('root page rejects writes; HEAD has no body; old public Flanime URL migrate
   assert.equal(redirect.headers.get('location'), 'https://nkbr.cc/projects/flacgn/');
 });
 
-test('platform labels follow package names', () => {
-  assert.equal(assetLabel('test-android-arm64-v8a.apk'), 'Android ARM64');
-  assert.equal(assetLabel('test-android-armeabi-v7a.apk'), 'Android ARMv7');
-  assert.equal(assetLabel('codexmax.exe'), 'Windows · CLI');
-  assert.equal(assetLabel('test-windows-setup.exe'), 'Windows · 安装版');
+test('thirteen films have distinct scenes and every motion track has a real actor', async () => {
+  assert.deepEqual(Object.keys(stories), wanted);
+  assert.equal(new Set(Object.values(art)).size,13);
+  for (const id of wanted) {
+    assert.equal(stories[id].chapters.length,3);
+    const html = await read(`.stage/projects/${id}/index.html`);
+    for (const [selector,frames] of scores[id]) {
+      const actor = selector.match(/data-actor="([^"]+)"/)[1];
+      assert.ok(html.includes(`data-actor="${actor}"`), `${id}: missing ${actor}`);
+      assert.ok(frames.length > 1);
+    }
+    assert.doesNotMatch(html, /<script(?![^>]*src=)|\sstyle=/);
+  }
 });

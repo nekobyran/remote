@@ -358,8 +358,7 @@ h3 {
   padding-block: 12px 62px;
 }
 
-.project-grid,
-.download-grid {
+.project-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
@@ -753,8 +752,7 @@ h3 {
   transition-duration: 90ms;
 }
 
-.text-link,
-.source-link {
+.text-link{
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -763,117 +761,10 @@ h3 {
   font-size: 12px;
 }
 
-.text-link svg,
-.source-link svg {
+.text-link svg{
   width: 16px;
   height: 16px;
   transition: transform 250ms var(--ease-out);
-}
-
-.downloads {
-  padding-bottom: 36px;
-}
-
-.section-heading {
-  display: flex;
-  min-width: 0;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-  padding-bottom: 19px;
-  border-bottom: 1px solid var(--line);
-}
-
-.section-heading h2 {
-  min-width: 0;
-  flex: 1;
-  font-size: 25px;
-  line-height: 1.4;
-  letter-spacing: -.04em;
-}
-
-.release-version {
-  display: flex;
-  min-width: 0;
-  max-width: 58%;
-  flex-direction: column;
-  gap: 6px;
-  text-align: right;
-  overflow-wrap: anywhere;
-}
-
-.release-version strong {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.55;
-}
-
-.release-version > span {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.download-card {
-  position: relative;
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 27px;
-  border: 1px solid #efffeacf;
-  border-radius: 22px;
-  background: linear-gradient(140deg,#f7fff0bd,#e9f7e1a6);
-  backdrop-filter: blur(18px) saturate(1.4);
-  box-shadow: inset 0 1.5px 1px #fffffff2, inset -1px -1px 2px #568e7333, 0 16px 32px -22px #244e3b5c;
-  transition: border-color 250ms ease, box-shadow 300ms ease;
-}
-
-.download-platform {
-  margin-bottom: 22px;
-  color: #4e6b45;
-  font-size: 11px;
-  font-weight: 650;
-  line-height: 1.65;
-  letter-spacing: .025em;
-  overflow-wrap: anywhere;
-}
-
-.download-card h3 {
-  max-width: 100%;
-  margin-bottom: 26px;
-  font-size: 16px;
-  font-weight: 550;
-  line-height: 1.65;
-  letter-spacing: -.015em;
-  overflow-wrap: anywhere;
-}
-
-.download-footer {
-  display: flex;
-  width: 100%;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-  margin-top: auto;
-}
-
-.file-size {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.6;
-  font-variant-numeric: tabular-nums;
-}
-
-.source-link {
-  margin-top: 22px;
-}
-
-.source-link > svg:last-child {
-  margin-left: 5px;
 }
 
 .support {
@@ -1082,23 +973,13 @@ h3 {
     transform: translateX(2px);
   }
 
-  .button-download:hover > svg {
-    transform: translateY(2px);
-  }
-
   .button:active {
     transform: translateY(2px);
     box-shadow: none;
   }
 
-  .text-link:hover > svg,
-  .source-link:hover > svg:last-child {
+  .text-link:hover > svg{
     transform: translateX(3px);
-  }
-
-  .download-card:hover {
-    border-color: #b2c8a1;
-    box-shadow: inset 0 1px 0 #ffffff, 0 5px 0 -2px #dbe6d1;
   }
 
   .sponsor-image:hover {
@@ -1109,11 +990,10 @@ h3 {
 
 /*
  * Orientation is the layout contract. Width queries below adjust spacing,
- * never the number of project or download columns.
+ * never the number of project columns.
  */
 @media (orientation: landscape) {
-  .project-grid,
-  .download-grid {
+  .project-grid{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -1123,8 +1003,7 @@ h3 {
     max-width: 720px;
   }
 
-  .project-grid,
-  .download-grid {
+  .project-grid{
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1257,19 +1136,6 @@ h3 {
     margin-left: 0;
   }
 
-  .section-heading {
-    gap: 16px;
-    margin-bottom: 19px;
-  }
-
-  .section-heading h2 {
-    font-size: 23px;
-  }
-
-  .download-card {
-    padding: 25px;
-  }
-
   .support {
     gap: 28px;
     padding: 28px;
@@ -1355,10 +1221,6 @@ h3 {
     padding-inline: 15px;
   }
 
-  .download-card {
-    padding: 23px;
-  }
-
   .site-footer {
     font-size: 10px;
     gap: 7px 12px;
@@ -1426,13 +1288,11 @@ h3 {
     font-size: 76px;
   }
 
-  .project-grid,
-  .download-grid {
+  .project-grid{
     gap: 14px;
   }
 
-  .project-link,
-  .download-card {
+  .project-link{
     padding: 20px;
   }
 
@@ -1477,17 +1337,6 @@ h3 {
     height: 30px;
   }
 
-  .download-card h3 {
-    font-size: 14px;
-  }
-
-  .download-card .button {
-    flex-wrap: wrap;
-    gap: 8px;
-    padding-inline: 12px;
-    font-size: 11px;
-  }
-
   .release-heading {
     grid-template-columns: 108px minmax(0, 1fr);
     gap: 28px;
@@ -1513,13 +1362,11 @@ h3 {
     --gutter: 16px;
   }
 
-  .project-grid,
-  .download-grid {
+  .project-grid{
     gap: 10px;
   }
 
-  .project-link,
-  .download-card {
+  .project-link{
     padding: 14px;
   }
 
@@ -1557,15 +1404,6 @@ h3 {
   .release-actions {
     margin-left: 0;
   }
-
-  .download-card .button {
-    width: 100%;
-    padding-inline: 7px;
-  }
-
-  .download-platform {
-    font-size: 10px;
-  }
 }
 
 @media (orientation: landscape) and (max-width: 420px) {
@@ -1573,13 +1411,11 @@ h3 {
     --gutter: 12px;
   }
 
-  .project-grid,
-  .download-grid {
+  .project-grid{
     gap: 8px;
   }
 
-  .project-link,
-  .download-card {
+  .project-link{
     padding: 10px;
   }
 
@@ -1604,10 +1440,6 @@ h3 {
 
   .project-description {
     font-size: 11px;
-  }
-
-  .download-card h3 {
-    font-size: 12px;
   }
 }
 
@@ -1806,7 +1638,6 @@ html[data-vt-direction="close"]::view-transition-new(nkbr-title) {
   .button,
   .button svg,
   .text-link svg,
-  .source-link svg,
   .sponsor-image {
     transform: none !important;
   }

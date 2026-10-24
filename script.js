@@ -418,7 +418,7 @@
           }
 
           /*
-           * #downloads and #support are real native history entries. Walk only
+           * #story and #support are real native history entries. Walk only
            * through entries belonging to this same project, then traverse to
            * the original collection entry in one native history operation.
            */
