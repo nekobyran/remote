@@ -19,7 +19,7 @@ test('homepage contains exactly the thirteen requested projects in image order',
   assert.doesNotMatch(html, /NekoStar|LanzouYOU|Easy Dream Skin|NKBR Blog|LICENSE NOT DECLARED|PRIVATE RELEASE|边界说明|校验/);
 });
 
-test('all project pages retain theme and use repository CTAs with individual films', async () => {
+test('all project pages retain theme, repository CTAs, and only Plus has stable download', async () => {
   for (const project of projects) {
     const html = await read(`.stage/projects/${project.id}/index.html`);
     assert.match(html, /data-design="mint-2026"/);
@@ -30,6 +30,7 @@ test('all project pages retain theme and use repository CTAs with individual fil
     assert.doesNotMatch(html, /SHA256|SHA-256|checksum|PRIVATE RELEASE|边界说明|免责声明/);
     assert.match(html, /id="story"/);
     assert.ok(html.includes(`href="https://github.com/nekobyran/${project.repo}"`));
+    assert.equal(html.includes('<a class="text-link" href="https://lanzouplus.nkbr.cc/download/stable"><span>下载最新正式版</span>'), project.id === 'lanzouplus');
     assert.ok(html.includes(`data-film="${project.id}"`));
     assert.doesNotMatch(html, /id="downloads"|download-card|选择下载|GitHub 下载|尚未发布安装包|releases\/download\//);
     assert.ok(html.includes('/_nkbr/stories.js'));

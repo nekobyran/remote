@@ -164,6 +164,7 @@ export function releasePage(project) {
       </div>
       <div class="release-actions" data-reveal data-detail-stage="3">
         <a class="button button-primary" href="${escapeHtml(repoUrl(project))}"><span>前往 GitHub 仓库</span>${github}</a>
+        ${project.stableDownloadUrl ? `<a class="text-link" href="${escapeHtml(project.stableDownloadUrl)}"><span>下载最新正式版</span>${arrow}</a>` : ''}
         <a class="text-link" href="#story"><span>观看介绍</span>${arrow}</a>
       </div>
     </div>

@@ -25,7 +25,10 @@ function Get-SiteStatus {
   $urls=@('https://nkbr.cc/')+@($projects | ForEach-Object {"https://nkbr.cc/projects/$($_.id)/"})+@($projects | Where-Object host | ForEach-Object {"https://$($_.host)/"})
   foreach($url in $urls){
     $response=Invoke-WebRequest -Uri $url -Headers @{'Cache-Control'='no-cache'} -TimeoutSec 30
-    if($response.StatusCode -ne 200 -or $response.Headers['X-NKBR-Design'] -ne 'mint-2026' -or $response.Content -notmatch 'data-design="mint-2026"'){throw "Site check failed: $url"}
+    $pageKind=if($url -eq 'https://nkbr.cc/'){'home'}else{'project'}
+    $htmlTag=[regex]::Match($response.Content,'(?is)<html\b[^>]*>')
+    $pageMarker='data-page="'+$pageKind+'"'
+    if($response.StatusCode -ne 200 -or $response.Headers['X-NKBR-Design'] -ne 'mint-2026' -or -not $htmlTag.Success -or -not $htmlTag.Value.Contains($pageMarker,[StringComparison]::Ordinal)){throw "Site check failed: $url"}
     Write-Output "PASS $url"
   }
 }
